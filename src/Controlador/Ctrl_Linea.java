@@ -8,6 +8,11 @@ package Controlador;
 import Modelo.DAO.DAO_Linea;
 import Modelo.VO.VO_Linea;
 import Vista.Frm_Catalogo_Linea;
+import Vista.Frm_Linea_Edit;
+import Vista.Frm_Marca_Edit;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,43 +31,34 @@ public class Ctrl_Linea implements ActionListener {
     DAO_Linea Modelo_Linea;
     Frm_Catalogo_Linea Linea_;
     VO_Linea vo_linea;
+    Frm_Linea_Edit form;
 
-    public Ctrl_Linea(DAO_Linea Modelo_Linea, Frm_Catalogo_Linea Linea_,VO_Linea vo_linea) {
+    public Ctrl_Linea(DAO_Linea Modelo_Linea, Frm_Catalogo_Linea Linea_, VO_Linea vo_linea, Frm_Linea_Edit form) {
         this.Modelo_Linea = Modelo_Linea;
         this.Linea_ = Linea_;
         this.vo_linea = vo_linea;
+        this.form = form;
         llenaGrid();
         this.Linea_.btn_Insertar.addActionListener(this);
         this.Linea_.Btn_Actualizar.addActionListener(this);
         this.Linea_.Btn_Eliminar.addActionListener(this);
         this.Linea_.Btn_Mostrar.addActionListener(this);
         this.Linea_.Btn_Salir.addActionListener(this);
-        this.Linea_.txt_Linea_nombre.addActionListener(this);
 
-        this.Linea_.Tbl_Linea.addMouseListener(
-                new MouseAdapter() {
-            public void mouseClicked(MouseEvent evnt) {
-                if (evnt.getClickCount() == 2) {
-                    String ID = Linea_.Tbl_Linea.getValueAt(Linea_.Tbl_Linea.getSelectedRow(), 0).toString();
-                    String Nomb = Linea_.Tbl_Linea.getValueAt(Linea_.Tbl_Linea.getSelectedRow(), 1).toString();
-                    Linea_.txt_Linea_nombre.setText(Nomb);
-                    Linea_.lbl_ID.setText(ID);
-                    Linea_.lbl_Titulo.setText("Actualizando datos");
-                }
-            }
-        }
-        );
+        this.form.btn_Insertar.addActionListener(this);
+        this.form.btn_Actualizar.addActionListener(this);
+        this.form.btn_Cancelar.addActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Linea_.btn_Insertar) {
-            Insertar_Linea();
+            this.Abreformulario_Edit();
         }
 
         if (e.getSource() == Linea_.Btn_Actualizar) {
-            Actualizar_Linea();
+            this.Pasa_datos();
         }
 
         if (e.getSource() == Linea_.Btn_Eliminar) {
@@ -73,6 +69,64 @@ public class Ctrl_Linea implements ActionListener {
             Linea_.dispose();
 
         }
+
+        if (e.getSource() == form.btn_Insertar) {
+            this.Insertar_Linea();
+
+        }
+
+        if (e.getSource() == form.btn_Actualizar) {
+
+            this.Actualizar_Linea();
+        }
+
+        if (e.getSource() == form.btn_Cancelar) {
+            form.dispose();
+
+        }
+    }
+
+    public void Abreformulario_Edit() {
+        Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+        form = new Frm_Linea_Edit(f, true);
+        LimpiarCajas();
+        form.setTitle("Formulario Agregar Linea");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setIconImage(img);
+        form.lbl_Titulo.setText("Agregar Linea");
+        form.btn_Actualizar.setVisible(false);
+        form.lbl_ID.setVisible(false);
+        form.btn_Insertar.setVisible(true);
+        llenaGrid();
+
+        form.setVisible(true);
+    }
+
+    public void Pasa_datos() {
+
+        int row = Linea_.Tbl_Linea.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Linea_Edit(f, true);
+            form.setTitle("Formulario Actualizar Linea");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setIconImage(img);
+            form.lbl_Titulo.setText("Actualizando datos de la Linea");
+            String ID = Linea_.Tbl_Linea.getValueAt(Linea_.Tbl_Linea.getSelectedRow(), 0).toString();
+            String Nomb = Linea_.Tbl_Linea.getValueAt(Linea_.Tbl_Linea.getSelectedRow(), 1).toString();
+            form.txt_Linea_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.lbl_Titulo.setText("Actualizando datos");
+
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
     }
 
     public void llenaGrid() {
@@ -103,7 +157,7 @@ public class Ctrl_Linea implements ActionListener {
 
     public int Insertar_Linea() {
 
-        String nom = Linea_.txt_Linea_nombre.getText();
+        String nom = form.txt_Linea_nombre.getText();
         vo_linea.setLinea(nom);
 
         int res = 0;
@@ -122,6 +176,7 @@ public class Ctrl_Linea implements ActionListener {
                     llenaGrid();
 
                     LimpiarCajas();
+                    form.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Insertar Datos");
                 }
@@ -138,11 +193,11 @@ public class Ctrl_Linea implements ActionListener {
 
     public int Actualizar_Linea() {
 
-        String ID_A = Linea_.lbl_ID.getText();
-        String nom = Linea_.txt_Linea_nombre.getText();
+        String ID_A = form.lbl_ID.getText();
+        String nom = form.txt_Linea_nombre.getText();
         int res = 0;
         int row = this.Linea_.Tbl_Linea.getSelectedRow();
-        
+
         vo_linea.setID_Linea(Integer.valueOf(ID_A));
         vo_linea.setLinea(nom);
         if (row == -1) {
@@ -161,6 +216,7 @@ public class Ctrl_Linea implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Datos Correctamente Actualizados");
                         llenaGrid();
                         LimpiarCajas();
+                        form.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al Actualizar Datos");
                     }
@@ -204,9 +260,9 @@ public class Ctrl_Linea implements ActionListener {
 
     public void LimpiarCajas() {
 
-        Linea_.txt_Linea_nombre.setText("");
-        Linea_.lbl_ID.setText("ID");
-        Linea_.lbl_Titulo.setText("Datos Linea");
+        form.txt_Linea_nombre.setText("");
+        form.lbl_ID.setText("ID");
+        form.lbl_Titulo.setText("Datos Linea");
     }
 
 }

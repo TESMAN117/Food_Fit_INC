@@ -10,7 +10,11 @@ import Modelo.DAO.DAO_Puesto;
 import Modelo.VO.VO_Categoria_Platillo;
 import Vista.Frm_Catalogo_Categoria_Platillo;
 import Vista.Frm_Catalogo_Puesto;
+import Vista.Frm_Categoria_Platillo_Edit;
+import Vista.Frm_Marca_Edit;
+import java.awt.Frame;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -47,49 +51,26 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
     DAO_Categoria_Platillo Modelo_Categoria;
     Frm_Catalogo_Categoria_Platillo Categoria;
     VO_Categoria_Platillo vo_categoria;
+    Frm_Categoria_Platillo_Edit form;
 
-    public Ctrl_Categoria_Platillo(DAO_Categoria_Platillo Modelo_Categoria, Frm_Catalogo_Categoria_Platillo Categoria, VO_Categoria_Platillo vo_categoria) {
+    public Ctrl_Categoria_Platillo(DAO_Categoria_Platillo Modelo_Categoria, Frm_Catalogo_Categoria_Platillo Categoria, VO_Categoria_Platillo vo_categoria, Frm_Categoria_Platillo_Edit form) {
         this.Modelo_Categoria = Modelo_Categoria;
         this.Categoria = Categoria;
         this.vo_categoria = vo_categoria;
+        this.form = form;
         llenaGrid();
         this.Categoria.btn_Insertar.addActionListener(this);
         this.Categoria.Btn_Actualizar.addActionListener(this);
         this.Categoria.Btn_Eliminar.addActionListener(this);
         this.Categoria.Btn_Mostrar.addActionListener(this);
         this.Categoria.Btn_Salir.addActionListener(this);
-        this.Categoria.txt_Categoria_nombre.addActionListener(this);
-        this.Categoria.btn_Examinar.addActionListener(this);
-        this.Categoria.txt_Foto.setEditable(false);
 
-        this.Categoria.Tbl_Categoria.addMouseListener(
-                new MouseAdapter() {
-            public void mouseClicked(MouseEvent evnt) {
-                if (evnt.getClickCount() == 2) {
-                    String ID = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 0).toString();
-                    String Nomb = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 1).toString();
-                    String imagine = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 2).toString();
-                    Categoria.txt_Categoria_nombre.setText(Nomb);
-                    Categoria.lbl_ID.setText(ID);
-                    Categoria.lbl_Titulo.setText("--Actualizando Datos--");
-                    Categoria.txt_Foto.setText(imagine);
-
-                    fichero = new File("src\\Multimedia\\IMG_CAT_PLATILLOS\\" + Categoria.txt_Foto.getText());
-                    ImageIcon icon = new ImageIcon(fichero.toString());
-
-                    System.out.print("Ficehero ac = " + fichero.getName());
-                    IMG_BORRAR = "src\\Multimedia\\IMG_CAT_PLATILLOS\\" + fichero.getName();
-
-                    Icon icono = new ImageIcon(icon.getImage().getScaledInstance(Categoria.Lbl_IMG_Cat.getWidth(), Categoria.Lbl_IMG_Cat.getHeight(), Image.SCALE_DEFAULT));
-
-                    Categoria.Lbl_IMG_Cat.setText(null);
-
-                    Categoria.Lbl_IMG_Cat.setIcon(icono);
-
-                }
-            }
-        }
-        );
+        this.form.txt_Categoria_nombre.addActionListener(this);
+        this.form.btn_Examinar.addActionListener(this);
+        this.form.txt_Foto.setEditable(false);
+        this.form.btn_Insertar.addActionListener(this);
+        this.form.btn_Cancelar.addActionListener(this);
+        this.form.btn_Actualizar.addActionListener(this);
 
         this.Categoria.Tbl_Categoria.addMouseListener(
                 new MouseAdapter() {
@@ -110,23 +91,91 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Categoria.btn_Insertar) {
-            Insertar_Categoria();
+            Abreformulario_Edit();
         }
 
         if (e.getSource() == Categoria.Btn_Actualizar) {
-            Actualizar_Categoria();
+            Pasa_datos();
         }
 
         if (e.getSource() == Categoria.Btn_Eliminar) {
             Eliminar_Categoria();
         }
 
-        if (e.getSource() == Categoria.btn_Examinar) {
+        if (e.getSource() == form.btn_Examinar) {
             examina_img();
         }
 
         if (e.getSource() == Categoria.Btn_Salir) {
             Categoria.dispose();
+        }
+
+        if (e.getSource() == form.btn_Insertar) {
+            Insertar_Categoria();
+        }
+
+        if (e.getSource() == form.btn_Cancelar) {
+            LimpiarCajas();
+            form.dispose();
+        }
+        if (e.getSource() == form.btn_Actualizar) {
+            Actualizar_Categoria();
+        }
+
+    }
+
+    public void Abreformulario_Edit() {
+        Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+        form = new Frm_Categoria_Platillo_Edit(f, true);
+        LimpiarCajas();
+        form.setTitle("Formulario Agregar Marca");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setIconImage(img);
+        form.lbl_Titulo.setText("Agregar Marca");
+        form.btn_Actualizar.setVisible(false);
+        form.lbl_ID.setVisible(false);
+        form.btn_Insertar.setVisible(true);
+        llenaGrid();
+
+        form.setVisible(true);
+    }
+
+    public void Pasa_datos() {
+
+        int row = Categoria.Tbl_Categoria.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Categoria_Platillo_Edit(f, true);
+            form.setTitle("Formulario Actualizar Marca");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setIconImage(img);
+            form.lbl_Titulo.setText("Actualizando datos de la Categoria");
+            String ID = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 0).toString();
+            String Nomb = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 1).toString();
+            String imagine = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 2).toString();
+            form.txt_Categoria_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+
+            form.txt_Foto.setText(imagine);
+
+            fichero = new File("src\\Multimedia\\IMG_CAT_PLATILLOS\\" + form.txt_Foto.getText());
+            ImageIcon icon = new ImageIcon(fichero.toString());
+
+            System.out.print("Ficehero ac = " + fichero.getName());
+            IMG_BORRAR = "src\\Multimedia\\IMG_CAT_PLATILLOS\\" + fichero.getName();
+
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(form.Lbl_IMG_Cat.getWidth(), form.Lbl_IMG_Cat.getHeight(), Image.SCALE_DEFAULT));
+
+            form.Lbl_IMG_Cat.setText(null);
+
+            form.Lbl_IMG_Cat.setIcon(icono);
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
         }
 
     }
@@ -160,8 +209,8 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
 
     public int Insertar_Categoria() {
 
-        String nom = Categoria.txt_Categoria_nombre.getText();
-        String img = Categoria.txt_Foto.getText();
+        String nom = form.txt_Categoria_nombre.getText();
+        String img = form.txt_Foto.getText();
         String Ruta = img;
 
         vo_categoria.setNombre_Categoria(nom);
@@ -190,6 +239,7 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
                         llenaGrid();
 
                         LimpiarCajas();
+                        form.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al Insertar Datos");
                     }
@@ -207,9 +257,9 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
 
     public int Actualizar_Categoria() {
 
-        int ID_A = Integer.parseInt(Categoria.lbl_ID.getText());
-        String nom = Categoria.txt_Categoria_nombre.getText();
-        String img = Categoria.txt_Foto.getText();
+        int ID_A = Integer.parseInt(form.lbl_ID.getText());
+        String nom = form.txt_Categoria_nombre.getText();
+        String img = form.txt_Foto.getText();
         String state = "";
 
         int res = 0;
@@ -222,7 +272,7 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
             JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
         } else {
 
-            if ("".equals(ID_A) || "".equals(nom) || Categoria.Lbl_IMG_Cat.getIcon() == null) {
+            if ("".equals(ID_A) || "".equals(nom) || form.Lbl_IMG_Cat.getIcon() == null) {
                 JOptionPane.showMessageDialog(null, "Campos vacios");
             } else {
 
@@ -237,6 +287,7 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
                             JOptionPane.showMessageDialog(null, "Datos Correctamente Actualizados-SIMG");
                             llenaGrid();
                             LimpiarCajas();
+                            form.dispose();
                             state = "SIMG";
 
                         } else {
@@ -262,6 +313,7 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
                             Files.copy(fichero.toPath(), dest.toPath());
                             llenaGrid();
                             LimpiarCajas();
+                            form.dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Error al Actualizar Datos");
                         }
@@ -291,7 +343,6 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
                 int r;
                 vo_categoria.setID_CATEGORIA(clave);
                 r = Modelo_Categoria.elimina_Categoria(vo_categoria);
-                
 
                 if (r != 0) {
 
@@ -318,12 +369,12 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
                 fichero = file.getSelectedFile();
 
                 //Categoria.txt_Foto.setText(fichero.getAbsolutePath());
-                Categoria.txt_Foto.setText(fichero.getName());
+                form.txt_Foto.setText(fichero.getName());
                 ImageIcon icon = new ImageIcon(fichero.toString());
 
-                Icon icono = new ImageIcon(icon.getImage().getScaledInstance(Categoria.Lbl_IMG_Cat.getWidth(), Categoria.Lbl_IMG_Cat.getHeight(), Image.SCALE_DEFAULT));
-                Categoria.Lbl_IMG_Cat.setText(null);
-                Categoria.Lbl_IMG_Cat.setIcon(icono);
+                Icon icono = new ImageIcon(icon.getImage().getScaledInstance(form.Lbl_IMG_Cat.getWidth(), form.Lbl_IMG_Cat.getHeight(), Image.SCALE_DEFAULT));
+                form.Lbl_IMG_Cat.setText(null);
+                form.Lbl_IMG_Cat.setIcon(icono);
 
             }
 
@@ -335,11 +386,11 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
 
     public void LimpiarCajas() {
 
-        Categoria.txt_Categoria_nombre.setText("");
-        Categoria.lbl_ID.setText("");
-        Categoria.txt_Foto.setText("");
-        Categoria.Lbl_IMG_Cat.setIcon(null);
-        Categoria.lbl_Titulo.setText("Datos Categoria");
+        form.txt_Categoria_nombre.setText("");
+        form.lbl_ID.setText("");
+        form.txt_Foto.setText("");
+        form.Lbl_IMG_Cat.setIcon(null);
+        form.lbl_Titulo.setText("Datos Categoria");
     }
 
 }

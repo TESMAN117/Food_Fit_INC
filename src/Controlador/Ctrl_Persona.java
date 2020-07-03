@@ -194,7 +194,7 @@ public class Ctrl_Persona implements ActionListener {
 
             }
         }
-        JOptionPane.showMessageDialog(null, "los campos : " + campos_vacios);
+        
         int res = 0;
 
         if (campos_vacios > 0) {
@@ -231,7 +231,7 @@ public class Ctrl_Persona implements ActionListener {
         } else {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(Formulario_edit);
             Formulario_edit = new Frm_Persona_Edit(f, true);
-            Formulario_edit.setTitle("Formulario Actualizar Sucursal");
+            Formulario_edit.setTitle("Formulario Actualizar Persona");
             Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
             Formulario_edit.setIconImage(img);
             Formulario_edit.lbl_Titulo.setText("ACTUALIZAR Persona");

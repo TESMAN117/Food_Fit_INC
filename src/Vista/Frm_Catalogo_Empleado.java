@@ -9,12 +9,12 @@ package Vista;
  *
  * @author jesus
  */
-public class Frm_Catalogo_Marca extends javax.swing.JInternalFrame {
+public class Frm_Catalogo_Empleado extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Frm_Area
      */
-    public Frm_Catalogo_Marca() {
+    public Frm_Catalogo_Empleado() {
         initComponents();
     }
 
@@ -34,7 +34,7 @@ public class Frm_Catalogo_Marca extends javax.swing.JInternalFrame {
         Btn_Eliminar = new javax.swing.JButton();
         Btn_Mostrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tbl_Marca = new javax.swing.JTable();
+        Tbl_Empleado = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -81,23 +81,23 @@ public class Frm_Catalogo_Marca extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        Tbl_Marca.setModel(new javax.swing.table.DefaultTableModel(
+        Tbl_Empleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre Marca"
+                "ID", "Persona", "Puesto", "Area", "Jefe", "Imagen"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(Tbl_Marca);
+        jScrollPane1.setViewportView(Tbl_Empleado);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -112,7 +112,7 @@ public class Frm_Catalogo_Marca extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +162,7 @@ public class Frm_Catalogo_Marca extends javax.swing.JInternalFrame {
     public javax.swing.JButton Btn_Eliminar;
     public javax.swing.JButton Btn_Mostrar;
     public javax.swing.JButton Btn_Salir;
-    public javax.swing.JTable Tbl_Marca;
+    public javax.swing.JTable Tbl_Empleado;
     public javax.swing.JButton btn_Insertar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

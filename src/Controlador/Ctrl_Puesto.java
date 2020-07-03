@@ -8,6 +8,11 @@ package Controlador;
 import Modelo.DAO.DAO_Puesto;
 import Modelo.VO.VO_Puesto;
 import Vista.Frm_Catalogo_Puesto;
+import Vista.Frm_Marca_Edit;
+import Vista.Frm_Puesto_Edit;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,46 +31,35 @@ public class Ctrl_Puesto implements ActionListener {
     DAO_Puesto Modelo_Puesto;
     Frm_Catalogo_Puesto Puesto;
     VO_Puesto vo_puesto;
+    Frm_Puesto_Edit form;
 
-    public Ctrl_Puesto(DAO_Puesto Modelo_Puesto, Frm_Catalogo_Puesto Puesto, VO_Puesto vo_puesto) {
+    public Ctrl_Puesto(DAO_Puesto Modelo_Puesto, Frm_Catalogo_Puesto Puesto, VO_Puesto vo_puesto,Frm_Puesto_Edit form) {
         this.Modelo_Puesto = Modelo_Puesto;
         this.Puesto = Puesto;
         this.vo_puesto = vo_puesto;
+        this.form=form;
         llenaGrid();
         this.Puesto.btn_Insertar.addActionListener(this);
         this.Puesto.Btn_Actualizar.addActionListener(this);
         this.Puesto.Btn_Eliminar.addActionListener(this);
         this.Puesto.Btn_Mostrar.addActionListener(this);
         this.Puesto.Btn_Salir.addActionListener(this);
-        this.Puesto.txt_Puesto_nombre.addActionListener(this);
-        this.Puesto.txt_Saldo.addActionListener(this);
+        
 
-        this.Puesto.Tbl_Puesto.addMouseListener(
-                new MouseAdapter() {
-            public void mouseClicked(MouseEvent evnt) {
-                if (evnt.getClickCount() == 2) {
-                    String ID = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 0).toString();
-                    String Nomb = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 1).toString();
-                    String Saldito = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 2).toString();
-                    Puesto.txt_Puesto_nombre.setText(Nomb);
-                    Puesto.lbl_ID.setText(ID);
-                    Puesto.lbl_Titulo.setText("--Actualizando Datos--");
-                    Puesto.txt_Saldo.setText(Saldito);
-                }
-            }
-        }
-        );
+        this.form.btn_Insertar.addActionListener(this);
+        this.form.btn_Cancelar.addActionListener(this);
+        this.form.btn_Actualizar.addActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Puesto.btn_Insertar) {
-            Insertar_Puesto();
+            Abreformulario_Edit();
         }
 
         if (e.getSource() == Puesto.Btn_Actualizar) {
-            Actualizar_Puesto();
+            Pasa_datos();
         }
 
         if (e.getSource() == Puesto.Btn_Eliminar) {
@@ -74,6 +68,63 @@ public class Ctrl_Puesto implements ActionListener {
 
         if (e.getSource() == Puesto.Btn_Salir) {
             Puesto.dispose();
+        }
+
+        if (e.getSource() == form.btn_Insertar) {
+            Insertar_Puesto();
+        }
+
+        if (e.getSource() == form.btn_Cancelar) {
+            LimpiarCajas();
+            form.dispose();
+        }
+        if (e.getSource() == form.btn_Actualizar) {
+            Actualizar_Puesto();
+        }
+
+    }
+
+    public void Abreformulario_Edit() {
+        Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+        form = new Frm_Puesto_Edit(f, true);
+        LimpiarCajas();
+        form.setTitle("Formulario Agregar Puesto");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setIconImage(img);
+        form.lbl_Titulo.setText("Agregar Puesto");
+        form.btn_Actualizar.setVisible(false);
+        form.lbl_ID.setVisible(false);
+        form.btn_Insertar.setVisible(true);
+        llenaGrid();
+
+        form.setVisible(true);
+    }
+
+    public void Pasa_datos() {
+
+        int row = Puesto.Tbl_Puesto.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Puesto_Edit(f, true);
+            form.setTitle("Formulario Actualizar Puesto");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setIconImage(img);
+
+            String ID = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 0).toString();
+            String Nomb = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 1).toString();
+            String Saldito = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 2).toString();
+            form.txt_Puesto_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.lbl_Titulo.setText("--Actualizando Datos--");
+            form.txt_Saldo.setText(Saldito);
+
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
         }
 
     }
@@ -107,8 +158,8 @@ public class Ctrl_Puesto implements ActionListener {
 
     public int Insertar_Puesto() {
 
-        String nom = Puesto.txt_Puesto_nombre.getText();
-        float Saldo = Float.parseFloat(Puesto.txt_Puesto_nombre.getText());
+        String nom = form.txt_Puesto_nombre.getText();
+        float Saldo = Float.parseFloat(form.txt_Saldo.getText());
 
         vo_puesto.setPuesto(nom);
         vo_puesto.setSueldo(Saldo);
@@ -129,6 +180,7 @@ public class Ctrl_Puesto implements ActionListener {
                     llenaGrid();
 
                     LimpiarCajas();
+                    form.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Insertar Datos");
                 }
@@ -145,9 +197,9 @@ public class Ctrl_Puesto implements ActionListener {
 
     public int Actualizar_Puesto() {
 
-        int ID_A = Integer.parseInt(Puesto.lbl_ID.getText());
-        String nom = Puesto.txt_Puesto_nombre.getText();
-        float Saldo = Float.parseFloat(Puesto.txt_Puesto_nombre.getText());
+        int ID_A = Integer.parseInt(form.lbl_ID.getText());
+        String nom = form.txt_Puesto_nombre.getText();
+        float Saldo = Float.parseFloat(form.txt_Saldo.getText());
         int res = 0;
         int row = this.Puesto.Tbl_Puesto.getSelectedRow();
 
@@ -170,6 +222,7 @@ public class Ctrl_Puesto implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Datos Correctamente Actualizados");
                         llenaGrid();
                         LimpiarCajas();
+                        form.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al Actualizar Datos");
                     }
@@ -203,6 +256,7 @@ public class Ctrl_Puesto implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "El Registro se eliminó correctamente");
                     llenaGrid();
+                    form.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Eliminar el Registro");
                 }
@@ -213,10 +267,10 @@ public class Ctrl_Puesto implements ActionListener {
 
     public void LimpiarCajas() {
 
-        Puesto.txt_Puesto_nombre.setText("");
-        Puesto.lbl_ID.setText("");
-        Puesto.txt_Saldo.setText("");
-        Puesto.lbl_Titulo.setText("Datos Puesto");
+        form.txt_Puesto_nombre.setText("");
+        form.lbl_ID.setText("");
+        form.txt_Saldo.setText("");
+        form.lbl_Titulo.setText("Datos Puesto");
     }
 
 }

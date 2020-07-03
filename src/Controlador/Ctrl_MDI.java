@@ -8,26 +8,40 @@ package Controlador;
 import Modelo.DAO.DAO_Persona;
 import Modelo.DAO.DAO_Area;
 import Modelo.DAO.DAO_Categoria_Platillo;
+import Modelo.DAO.DAO_Cliente;
+import Modelo.DAO.DAO_Empleado;
 import Modelo.DAO.DAO_Linea;
 import Modelo.DAO.DAOl_Marca;
 import Modelo.DAO.DAO_Puesto;
 import Modelo.DAO.DAO_Sucursal;
 import Modelo.VO.VO_Area;
 import Modelo.VO.VO_Categoria_Platillo;
+import Modelo.VO.VO_Cliente;
+import Modelo.VO.VO_Empleado;
 import Modelo.VO.VO_Linea;
 import Modelo.VO.VO_Marca;
 import Modelo.VO.VO_Persona;
 import Modelo.VO.VO_Puesto;
 import Modelo.VO.VO_Sucursal;
+import Vista.Frm_Area_Edit;
 import Vista.Frm_Catalogo_Area;
 import Vista.Frm_Catalogo_Categoria_Platillo;
+import Vista.Frm_Catalogo_Cliente;
+import Vista.Frm_Catalogo_Empleado;
 import Vista.Frm_Catalogo_Marca;
 import Vista.Frm_Catalogo_Linea;
 import Vista.Frm_Catalogo_Persona;
 import Vista.Frm_Catalogo_Puesto;
 import Vista.Frm_Catalogo_Sucursal;
+import Vista.Frm_Categoria_Platillo_Edit;
+import Vista.Frm_Cliente_Edit;
+import Vista.Frm_Empleado_Edit;
+import Vista.Frm_Linea_Edit;
+import Vista.Frm_Marca_Edit;
 import Vista.Frm_Persona_Edit;
+import Vista.Frm_Puesto_Edit;
 import Vista.Frm_Sucursal_Edit;
+import Vista.Frm_Tablas;
 import Vista.MDI_Food;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,6 +69,8 @@ public class Ctrl_MDI implements ActionListener {
     Frm_Catalogo_Categoria_Platillo Categoria = null;
     Frm_Catalogo_Puesto Puestos = null;
     Frm_Catalogo_Persona Persona = null;
+    Frm_Catalogo_Empleado Empelado = null;
+    Frm_Catalogo_Cliente Cliente = null;
 
     public Ctrl_MDI(MDI_Food MDI) {
         this.MDI = MDI;
@@ -65,7 +81,8 @@ public class Ctrl_MDI implements ActionListener {
         this.MDI.sub_mnu_Categoria.addActionListener(this);
         this.MDI.sub_mnu_Puestos.addActionListener(this);
         this.MDI.sub_mnu_Persona.addActionListener(this);
-
+        this.MDI.sub_mnu_Empleado.addActionListener(this);
+        this.MDI.sub_mnu_Cliente.addActionListener(this);
     }
 
     @Override
@@ -109,6 +126,19 @@ public class Ctrl_MDI implements ActionListener {
 
         }
 
+        if (e.getSource() == MDI.sub_mnu_Empleado) {
+
+            AbreCatalago_Empleado();
+
+        }
+
+        if (e.getSource() == MDI.sub_mnu_Cliente) {
+
+            AbreCatalago_Cliente();
+        
+ 
+        }
+
     }
 
     public void AbreCatalago_Sucursal() throws SQLException {
@@ -117,7 +147,7 @@ public class Ctrl_MDI implements ActionListener {
             Frm_Sucursal_Edit Abre = new Frm_Sucursal_Edit();
             DAO_Sucursal Mo = new DAO_Sucursal();
             VO_Sucursal vo = new VO_Sucursal();
-            Ctrl_Sucursal ctrl = new Ctrl_Sucursal(Sucursal, Mo, Abre,vo);
+            Ctrl_Sucursal ctrl = new Ctrl_Sucursal(Sucursal, Mo, Abre, vo);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Sucursal.setSize(x, y);
@@ -135,7 +165,8 @@ public class Ctrl_MDI implements ActionListener {
             Area = new Frm_Catalogo_Area();
             DAO_Area Mo = new DAO_Area();
             VO_Area vo = new VO_Area();
-            Ctrl_Area ctrl = new Ctrl_Area(Mo, Area, vo);
+            Frm_Area_Edit form = new Frm_Area_Edit();
+            Ctrl_Area ctrl = new Ctrl_Area(Mo, Area, vo, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Area.setSize(x, y);
@@ -153,8 +184,9 @@ public class Ctrl_MDI implements ActionListener {
             Marca = new Frm_Catalogo_Marca();
             DAOl_Marca Mo = new DAOl_Marca();
             VO_Marca Mo_VO = new VO_Marca();
+            Frm_Marca_Edit form = new Frm_Marca_Edit();
 
-            Ctrl_Marca ctrl = new Ctrl_Marca(Mo, Marca, Mo_VO);
+            Ctrl_Marca ctrl = new Ctrl_Marca(Mo, Marca, Mo_VO, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Marca.setSize(x, y);
@@ -172,7 +204,8 @@ public class Ctrl_MDI implements ActionListener {
             Linea = new Frm_Catalogo_Linea();
             DAO_Linea Mo = new DAO_Linea();
             VO_Linea vo_linea = new VO_Linea();
-            Ctrl_Linea ctrl = new Ctrl_Linea(Mo, Linea, vo_linea);
+            Frm_Linea_Edit form = new Frm_Linea_Edit();
+            Ctrl_Linea ctrl = new Ctrl_Linea(Mo, Linea, vo_linea, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Linea.setSize(x, y);
@@ -190,7 +223,8 @@ public class Ctrl_MDI implements ActionListener {
             Categoria = new Frm_Catalogo_Categoria_Platillo();
             DAO_Categoria_Platillo Mo = new DAO_Categoria_Platillo();
             VO_Categoria_Platillo Vo = new VO_Categoria_Platillo();
-            Ctrl_Categoria_Platillo ctrl = new Ctrl_Categoria_Platillo(Mo, Categoria, Vo);
+            Frm_Categoria_Platillo_Edit form = new Frm_Categoria_Platillo_Edit();
+            Ctrl_Categoria_Platillo ctrl = new Ctrl_Categoria_Platillo(Mo, Categoria, Vo, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Categoria.setSize(x, y);
@@ -208,7 +242,8 @@ public class Ctrl_MDI implements ActionListener {
             Puestos = new Frm_Catalogo_Puesto();
             DAO_Puesto Mo = new DAO_Puesto();
             VO_Puesto vo = new VO_Puesto();
-            Ctrl_Puesto ctrl = new Ctrl_Puesto(Mo, Puestos, vo);
+            Frm_Puesto_Edit form = new Frm_Puesto_Edit();
+            Ctrl_Puesto ctrl = new Ctrl_Puesto(Mo, Puestos, vo, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Puestos.setSize(x, y);
@@ -238,6 +273,48 @@ public class Ctrl_MDI implements ActionListener {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Persona.setVisible(true);
+
+    }
+
+    public void AbreCatalago_Empleado() {
+
+        if (Empelado == null || Empelado.isClosed()) {
+            Empelado = new Frm_Catalogo_Empleado();
+            DAO_Empleado Mo = new DAO_Empleado();
+            Frm_Empleado_Edit form = new Frm_Empleado_Edit();
+            VO_Empleado vo = new VO_Empleado();
+            Frm_Tablas tabla = new Frm_Tablas();
+            Ctrl_Empleado ctrl = new Ctrl_Empleado(vo, Mo, Empelado, form, tabla);
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Empelado.setSize(x, y);
+
+            MDI.jDesktopPane1.add(Empelado);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Empelado.setVisible(true);
+
+    }
+
+    public void AbreCatalago_Cliente() {
+
+        if (Cliente == null || Cliente.isClosed()) {
+            Cliente = new Frm_Catalogo_Cliente();
+            DAO_Cliente Mo = new DAO_Cliente();
+            Frm_Cliente_Edit form = new Frm_Cliente_Edit();
+            VO_Cliente vo = new VO_Cliente();
+            Frm_Tablas tabla = new Frm_Tablas();
+            Ctrl_Clientes ctrl = new Ctrl_Clientes(Mo, vo, Cliente, form, tabla);
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Cliente.setSize(x, y);
+
+            MDI.jDesktopPane1.add(Cliente);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Cliente.setVisible(true);
 
     }
 

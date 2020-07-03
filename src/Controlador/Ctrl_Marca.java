@@ -8,6 +8,11 @@ package Controlador;
 import Modelo.DAO.DAOl_Marca;
 import Modelo.VO.VO_Marca;
 import Vista.Frm_Catalogo_Marca;
+import Vista.Frm_Marca_Edit;
+import Vista.Frm_Persona_Edit;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,43 +31,34 @@ public class Ctrl_Marca implements ActionListener {
     DAOl_Marca Modelo_Marca;
     Frm_Catalogo_Marca Marca_;
     VO_Marca vo_Marca;
+    Frm_Marca_Edit form;
 
-    public Ctrl_Marca(DAOl_Marca Modelo_Marca, Frm_Catalogo_Marca Marca_, VO_Marca vo_Marca) {
+    public Ctrl_Marca(DAOl_Marca Modelo_Marca, Frm_Catalogo_Marca Marca_, VO_Marca vo_Marca, Frm_Marca_Edit form) {
         this.Modelo_Marca = Modelo_Marca;
         this.Marca_ = Marca_;
         this.vo_Marca = vo_Marca;
+        this.form = form;
         llenaGrid();
         this.Marca_.btn_Insertar.addActionListener(this);
         this.Marca_.Btn_Actualizar.addActionListener(this);
         this.Marca_.Btn_Eliminar.addActionListener(this);
         this.Marca_.Btn_Mostrar.addActionListener(this);
         this.Marca_.Btn_Salir.addActionListener(this);
-        this.Marca_.txt_Marca_nombre.addActionListener(this);
 
-        this.Marca_.Tbl_Marca.addMouseListener(
-                new MouseAdapter() {
-            public void mouseClicked(MouseEvent evnt) {
-                if (evnt.getClickCount() == 2) {
-                    String ID = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 0).toString();
-                    String Nomb = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 1).toString();
-                    Marca_.txt_Marca_nombre.setText(Nomb);
-                    Marca_.lbl_ID.setText(ID);
-                    Marca_.lbl_Titulo.setText("--Actualizando Datos--");
-                }
-            }
-        }
-        );
+        this.form.btn_Insertar.addActionListener(this);
+        this.form.btn_Cancelar.addActionListener(this);
+        this.form.btn_Actualizar.addActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Marca_.btn_Insertar) {
-            Insertar_Marca();
+            Abreformulario_Edit();
         }
 
         if (e.getSource() == Marca_.Btn_Actualizar) {
-            Actualizar_Marca();
+            Pasa_datos();
         }
 
         if (e.getSource() == Marca_.Btn_Eliminar) {
@@ -72,6 +68,59 @@ public class Ctrl_Marca implements ActionListener {
         if (e.getSource() == Marca_.Btn_Salir) {
 
             Marca_.dispose();
+        }
+
+        if (e.getSource() == form.btn_Insertar) {
+            Insertar_Marca();
+        }
+
+        if (e.getSource() == form.btn_Cancelar) {
+            LimpiarCajas();
+            form.dispose();
+        }
+        if (e.getSource() == form.btn_Actualizar) {
+            Actualizar_Marca();
+        }
+
+    }
+
+    public void Abreformulario_Edit() {
+        Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+        form = new Frm_Marca_Edit(f, true);
+        LimpiarCajas();
+        form.setTitle("Formulario Agregar Marca");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setIconImage(img);
+        form.lbl_Titulo.setText("Agregar Marca");
+        form.btn_Actualizar.setVisible(false);
+        form.lbl_ID.setVisible(false);
+        form.btn_Insertar.setVisible(true);
+        llenaGrid();
+
+        form.setVisible(true);
+    }
+
+    public void Pasa_datos() {
+
+        int row = Marca_.Tbl_Marca.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Marca_Edit(f, true);
+            form.setTitle("Formulario Actualizar Marca");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setIconImage(img);
+            form.lbl_Titulo.setText("Actualizando datos de la Marca");
+            String ID = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 0).toString();
+            String Nomb = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 1).toString();
+            form.txt_Marca_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
         }
 
     }
@@ -104,7 +153,7 @@ public class Ctrl_Marca implements ActionListener {
 
     public int Insertar_Marca() {
 
-        String nom = Marca_.txt_Marca_nombre.getText();
+        String nom = form.txt_Marca_nombre.getText();
         vo_Marca.setNombre_Marca(nom);
 
         int res = 0;
@@ -123,6 +172,7 @@ public class Ctrl_Marca implements ActionListener {
                     llenaGrid();
 
                     LimpiarCajas();
+                    form.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Insertar Datos");
                 }
@@ -139,12 +189,11 @@ public class Ctrl_Marca implements ActionListener {
 
     public int Actualizar_Marca() {
 
-        String ID_A = Marca_.lbl_ID.getText();
-        String nom = Marca_.txt_Marca_nombre.getText();
+        String ID_A = form.lbl_ID.getText();
+        String nom = form.txt_Marca_nombre.getText();
         int res = 0;
         int row = this.Marca_.Tbl_Marca.getSelectedRow();
-        
-        
+
         vo_Marca.setID_MARCA(Integer.parseInt(ID_A));
         vo_Marca.setNombre_Marca(nom);
         if (row == -1) {
@@ -163,6 +212,7 @@ public class Ctrl_Marca implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Datos Correctamente Actualizados");
                         llenaGrid();
                         LimpiarCajas();
+                        form.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al Actualizar Datos");
                     }
@@ -181,7 +231,7 @@ public class Ctrl_Marca implements ActionListener {
     public void Eliminar_Marca() {
 
         int row = Marca_.Tbl_Marca.getSelectedRow();
-    
+
         if (row == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
         } else {
@@ -207,9 +257,9 @@ public class Ctrl_Marca implements ActionListener {
 
     public void LimpiarCajas() {
 
-        Marca_.txt_Marca_nombre.setText("");
-        Marca_.lbl_ID.setText("");
-        Marca_.lbl_Titulo.setText("Datos Area");
+        form.txt_Marca_nombre.setText("");
+        form.lbl_ID.setText("");
+        form.lbl_Titulo.setText("Datos Marca");
     }
 
 }

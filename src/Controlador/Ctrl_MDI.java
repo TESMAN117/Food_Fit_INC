@@ -11,6 +11,9 @@ import Modelo.DAO.DAO_Categoria_Platillo;
 import Modelo.DAO.DAO_Cliente;
 import Modelo.DAO.DAO_Empleado;
 import Modelo.DAO.DAO_Linea;
+import Modelo.DAO.DAO_Platillo;
+import Modelo.DAO.DAO_Producto_Proveedor;
+import Modelo.DAO.DAO_Proveedor;
 import Modelo.DAO.DAOl_Marca;
 import Modelo.DAO.DAO_Puesto;
 import Modelo.DAO.DAO_Sucursal;
@@ -21,6 +24,9 @@ import Modelo.VO.VO_Empleado;
 import Modelo.VO.VO_Linea;
 import Modelo.VO.VO_Marca;
 import Modelo.VO.VO_Persona;
+import Modelo.VO.VO_Platillo;
+import Modelo.VO.VO_Producto_Proveedor;
+import Modelo.VO.VO_Proveedor;
 import Modelo.VO.VO_Puesto;
 import Modelo.VO.VO_Sucursal;
 import Vista.Frm_Area_Edit;
@@ -31,6 +37,9 @@ import Vista.Frm_Catalogo_Empleado;
 import Vista.Frm_Catalogo_Marca;
 import Vista.Frm_Catalogo_Linea;
 import Vista.Frm_Catalogo_Persona;
+import Vista.Frm_Catalogo_Platillo;
+import Vista.Frm_Catalogo_Producto_Proveedor;
+import Vista.Frm_Catalogo_Proveedor;
 import Vista.Frm_Catalogo_Puesto;
 import Vista.Frm_Catalogo_Sucursal;
 import Vista.Frm_Categoria_Platillo_Edit;
@@ -39,6 +48,9 @@ import Vista.Frm_Empleado_Edit;
 import Vista.Frm_Linea_Edit;
 import Vista.Frm_Marca_Edit;
 import Vista.Frm_Persona_Edit;
+import Vista.Frm_Platillo_Edit;
+import Vista.Frm_Producto_Proveedor_Edit;
+import Vista.Frm_Proveedor_Edit;
 import Vista.Frm_Puesto_Edit;
 import Vista.Frm_Sucursal_Edit;
 import Vista.Frm_Tablas;
@@ -71,6 +83,9 @@ public class Ctrl_MDI implements ActionListener {
     Frm_Catalogo_Persona Persona = null;
     Frm_Catalogo_Empleado Empelado = null;
     Frm_Catalogo_Cliente Cliente = null;
+    Frm_Catalogo_Platillo Platillo = null;
+    Frm_Catalogo_Proveedor Proveedor = null;
+    Frm_Catalogo_Producto_Proveedor Producto = null;
 
     public Ctrl_MDI(MDI_Food MDI) {
         this.MDI = MDI;
@@ -83,6 +98,9 @@ public class Ctrl_MDI implements ActionListener {
         this.MDI.sub_mnu_Persona.addActionListener(this);
         this.MDI.sub_mnu_Empleado.addActionListener(this);
         this.MDI.sub_mnu_Cliente.addActionListener(this);
+        this.MDI.sub_mnu_Platillo.addActionListener(this);
+        this.MDI.sub_mnu_Proveedor.addActionListener(this);
+        this.MDI.sub_mnu_Prove_Productos.addActionListener(this);
     }
 
     @Override
@@ -135,8 +153,24 @@ public class Ctrl_MDI implements ActionListener {
         if (e.getSource() == MDI.sub_mnu_Cliente) {
 
             AbreCatalago_Cliente();
-        
- 
+
+        }
+
+        if (e.getSource() == MDI.sub_mnu_Platillo) {
+
+            AbreCatalago_Platillo();
+
+        }
+        if (e.getSource() == MDI.sub_mnu_Proveedor) {
+
+            AbreCatalago_Proveedor();
+
+        }
+
+        if (e.getSource() == MDI.sub_mnu_Prove_Productos) {
+
+            AbreCatalago_Producto();
+
         }
 
     }
@@ -315,6 +349,67 @@ public class Ctrl_MDI implements ActionListener {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Cliente.setVisible(true);
+
+    }
+
+    public void AbreCatalago_Platillo() {
+        if (Platillo == null || Platillo.isClosed()) {
+            Platillo = new Frm_Catalogo_Platillo();
+            DAO_Platillo Mo = new DAO_Platillo();
+            Frm_Platillo_Edit form = new Frm_Platillo_Edit();
+            VO_Platillo vo = new VO_Platillo();
+            Frm_Tablas tabla = new Frm_Tablas();
+            Ctrl_Platillo ctrl = new Ctrl_Platillo(Mo, vo, Platillo, form, tabla);
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Platillo.setSize(x, y);
+
+            MDI.jDesktopPane1.add(Platillo);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Platillo.setVisible(true);
+
+    }
+
+    public void AbreCatalago_Proveedor() {
+        if (Proveedor == null || Proveedor.isClosed()) {
+            Proveedor = new Frm_Catalogo_Proveedor();
+            DAO_Proveedor Mo = new DAO_Proveedor();
+            Frm_Proveedor_Edit form = new Frm_Proveedor_Edit();
+            VO_Proveedor vo = new VO_Proveedor();
+
+            Ctrl_Proveedor ctrl = new Ctrl_Proveedor(Mo, vo, Proveedor, form);
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Proveedor.setSize(x, y);
+
+            MDI.jDesktopPane1.add(Proveedor);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Proveedor.setVisible(true);
+
+    }
+
+    public void AbreCatalago_Producto() {
+        if (Producto == null || Producto.isClosed()) {
+            Producto = new Frm_Catalogo_Producto_Proveedor();
+            DAO_Producto_Proveedor Mo = new DAO_Producto_Proveedor();
+            Frm_Producto_Proveedor_Edit form = new Frm_Producto_Proveedor_Edit();
+            VO_Producto_Proveedor vo = new VO_Producto_Proveedor();
+            Frm_Tablas tabla = new Frm_Tablas();
+
+            Ctrl_Producto_Proveedor ctrl = new Ctrl_Producto_Proveedor(Mo, vo, Producto, form, tabla);
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Producto.setSize(x, y);
+
+            MDI.jDesktopPane1.add(Producto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Producto.setVisible(true);
 
     }
 

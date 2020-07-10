@@ -44,6 +44,9 @@ public class MDI_Food extends javax.swing.JFrame {
         sub_mnu_Persona = new javax.swing.JMenuItem();
         sub_mnu_Empleado = new javax.swing.JMenuItem();
         sub_mnu_Cliente = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        sub_mnu_Proveedor = new javax.swing.JMenuItem();
+        sub_mnu_Prove_Productos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,6 +124,16 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu6.setText("Proveedores");
+
+        sub_mnu_Proveedor.setText("Proveedor");
+        jMenu6.add(sub_mnu_Proveedor);
+
+        sub_mnu_Prove_Productos.setText("Productos");
+        jMenu6.add(sub_mnu_Prove_Productos);
+
+        jMenuBar1.add(jMenu6);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,6 +162,7 @@ public class MDI_Food extends javax.swing.JFrame {
     public javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     public javax.swing.JMenuItem sub_mnu_Area;
@@ -159,6 +173,8 @@ public class MDI_Food extends javax.swing.JFrame {
     public javax.swing.JMenuItem sub_mnu_Marca;
     public javax.swing.JMenuItem sub_mnu_Persona;
     public javax.swing.JMenuItem sub_mnu_Platillo;
+    public javax.swing.JMenuItem sub_mnu_Prove_Productos;
+    public javax.swing.JMenuItem sub_mnu_Proveedor;
     public javax.swing.JMenuItem sub_mnu_Puestos;
     public javax.swing.JMenuItem sub_mnu_Sucursal;
     // End of variables declaration//GEN-END:variables

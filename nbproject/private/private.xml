@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/jesus/OneDrive/Documentos/NetBeansProjects/Food_Fit_INC/src/Controlador/Ctrl_Empleado.java</file>
+            <file>file:/C:/Users/jesus/OneDrive/Documentos/NetBeansProjects/Food_Fit_INC/src/Vista/Frm_Producto_Proveedor_Edit.java</file>
+            <file>file:/C:/Users/jesus/OneDrive/Documentos/NetBeansProjects/Food_Fit_INC/src/Modelo/DAO/DAO_Producto_Proveedor.java</file>
+            <file>file:/C:/Users/jesus/OneDrive/Documentos/NetBeansProjects/Food_Fit_INC/src/Controlador/Ctrl_Producto_Proveedor.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -47,6 +47,10 @@ public class MDI_Food extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         sub_mnu_Proveedor = new javax.swing.JMenuItem();
         sub_mnu_Prove_Productos = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        sub_mnu_Ventas = new javax.swing.JMenuItem();
+        sub_mnu_Detalle_Ventas = new javax.swing.JMenuItem();
+        sub_mnu_Corte_Caja = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -134,6 +138,19 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
+        jMenu7.setText("Ventas");
+
+        sub_mnu_Ventas.setText("Venta");
+        jMenu7.add(sub_mnu_Ventas);
+
+        sub_mnu_Detalle_Ventas.setText("Detalles");
+        jMenu7.add(sub_mnu_Detalle_Ventas);
+
+        sub_mnu_Corte_Caja.setText("Corte de Caja");
+        jMenu7.add(sub_mnu_Corte_Caja);
+
+        jMenuBar1.add(jMenu7);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,11 +180,14 @@ public class MDI_Food extends javax.swing.JFrame {
     public javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     public javax.swing.JMenuItem sub_mnu_Area;
     public javax.swing.JMenuItem sub_mnu_Categoria;
     public javax.swing.JMenuItem sub_mnu_Cliente;
+    public javax.swing.JMenuItem sub_mnu_Corte_Caja;
+    public javax.swing.JMenuItem sub_mnu_Detalle_Ventas;
     public javax.swing.JMenuItem sub_mnu_Empleado;
     public javax.swing.JMenuItem sub_mnu_Linea;
     public javax.swing.JMenuItem sub_mnu_Marca;
@@ -177,5 +197,6 @@ public class MDI_Food extends javax.swing.JFrame {
     public javax.swing.JMenuItem sub_mnu_Proveedor;
     public javax.swing.JMenuItem sub_mnu_Puestos;
     public javax.swing.JMenuItem sub_mnu_Sucursal;
+    public javax.swing.JMenuItem sub_mnu_Ventas;
     // End of variables declaration//GEN-END:variables
 }

@@ -87,6 +87,9 @@ public class Ctrl_Platillo implements ActionListener {
         if (e.getSource() == Platillo.btn_Insertar) {
             Abreformulario_Edit();
         }
+        if (e.getSource() == Platillo.Btn_Salir) {
+            Platillo.dispose();
+        }
 
         if (e.getSource() == Platillo.Btn_Actualizar) {
             Pasa_datos();

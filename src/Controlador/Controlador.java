@@ -9,6 +9,7 @@ import Modelo.DAO.Cls_Conexion;
 import Modelo.DAO.DAO_Login;
 import Modelo.VO.VO_Login;
 import Vista.Frm_Datos_del_Servidor;
+import Vista.Frm_Tablas;
 import Vista.frm_Login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,7 @@ public class Controlador {
         this.Modelo_conexion = Modelo_conexion;
         this.Login = Login;
         this.Datos_server = Datos_server;
+
     }
 
     public static void main(String args[]) throws IOException {
@@ -57,8 +59,28 @@ public class Controlador {
         if (Modelo_conexion.getState() == true) {
             Modelo_Login = new DAO_Login();
             VO_Login vo_login = new VO_Login();
-            Ctrl_Login Abre = new Ctrl_Login(Login, Modelo_Login, vo_login);
-            Login.setVisible(true);
+            Frm_Tablas tabla = new Frm_Tablas();
+            Ctrl_Login Abre = new Ctrl_Login(Login, Modelo_Login, vo_login, tabla);
+            try {
+                Abre.leerArchivo();
+            } catch (Exception ex) {
+
+                System.out.print(ex);
+            }
+
+            if (Abre.Verifica() == false) {
+
+                Abre.Abreformulario_Tabla("Sucursal");
+                Abre.leerArchivo();
+
+            } 
+
+            if (Abre.Verifica() == true) {
+
+                Login.setVisible(true);
+
+            }
+
         }
 
         if (Modelo_conexion.getState() == false) {
@@ -68,6 +90,7 @@ public class Controlador {
             Datos_server.setVisible(true);
 
         }
+
     }
 
 }

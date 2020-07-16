@@ -64,7 +64,7 @@ public class Frm_Tablas extends javax.swing.JDialog {
             Tbl_Tabla.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        veri.setText("as");
+        veri.setText("veri");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

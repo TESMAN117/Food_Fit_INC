@@ -40,4 +40,23 @@ public class DAO_Login {
         return null;
     }
 
+    public ResultSet Sucursal() {
+        cnn = conec.conexion();
+        ResultSet rs = null;
+        String consulta = "SELECT * FROM tbl_sucursal;";
+
+        try {
+            Statement stm;
+            stm = (Statement) cnn.createStatement();
+            rs = stm.executeQuery(consulta);
+
+            return rs;
+
+        } catch (Exception e) {
+            System.out.println("Error al hacer la consulta");
+
+        }
+        return null;
+    }
+
 }

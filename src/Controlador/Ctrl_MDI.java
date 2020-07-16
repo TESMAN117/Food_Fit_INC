@@ -17,6 +17,7 @@ import Modelo.DAO.DAO_Proveedor;
 import Modelo.DAO.DAOl_Marca;
 import Modelo.DAO.DAO_Puesto;
 import Modelo.DAO.DAO_Sucursal;
+import Modelo.DAO.DAO_Ventas;
 import Modelo.VO.VO_Area;
 import Modelo.VO.VO_Categoria_Platillo;
 import Modelo.VO.VO_Cliente;
@@ -29,6 +30,8 @@ import Modelo.VO.VO_Producto_Proveedor;
 import Modelo.VO.VO_Proveedor;
 import Modelo.VO.VO_Puesto;
 import Modelo.VO.VO_Sucursal;
+import Modelo.VO.VO_Venta;
+import Modelo.VO.VO_Venta_Detalle;
 import Vista.Frm_Area_Edit;
 import Vista.Frm_Catalogo_Area;
 import Vista.Frm_Catalogo_Categoria_Platillo;
@@ -54,6 +57,7 @@ import Vista.Frm_Proveedor_Edit;
 import Vista.Frm_Puesto_Edit;
 import Vista.Frm_Sucursal_Edit;
 import Vista.Frm_Tablas;
+import Vista.Frm_Ventas;
 import Vista.MDI_Food;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -74,7 +78,6 @@ public class Ctrl_MDI implements ActionListener {
 
     //Catalogos
     Frm_Catalogo_Sucursal Sucursal = null;
-
     Frm_Catalogo_Area Area = null;
     Frm_Catalogo_Marca Marca = null;
     Frm_Catalogo_Linea Linea = null;
@@ -86,9 +89,18 @@ public class Ctrl_MDI implements ActionListener {
     Frm_Catalogo_Platillo Platillo = null;
     Frm_Catalogo_Proveedor Proveedor = null;
     Frm_Catalogo_Producto_Proveedor Producto = null;
-
-    public Ctrl_MDI(MDI_Food MDI) {
+    Frm_Ventas Ventas = null;
+    
+    int ID_SUCURSAL;
+    String NOMBRE;
+    String Dato[];
+    
+    public Ctrl_MDI(MDI_Food MDI, int ID_SUC, String Nombre, String[] data) {
         this.MDI = MDI;
+        this.ID_SUCURSAL = ID_SUC;
+        this.NOMBRE = Nombre;
+        this.Dato = data;
+        
         this.MDI.sub_mnu_Sucursal.addActionListener(this);
         this.MDI.sub_mnu_Area.addActionListener(this);
         this.MDI.sub_mnu_Marca.addActionListener(this);
@@ -101,8 +113,9 @@ public class Ctrl_MDI implements ActionListener {
         this.MDI.sub_mnu_Platillo.addActionListener(this);
         this.MDI.sub_mnu_Proveedor.addActionListener(this);
         this.MDI.sub_mnu_Prove_Productos.addActionListener(this);
+        this.MDI.sub_mnu_Ventas.addActionListener(this);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == MDI.sub_mnu_Sucursal) {
@@ -112,69 +125,75 @@ public class Ctrl_MDI implements ActionListener {
                 Logger.getLogger(Ctrl_MDI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Area) {
-
+            
             try {
                 AbreCatalago_Area();
             } catch (Exception ex) {
                 System.out.print(ex);
             }
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Marca) {
             AbreCatalago_Marca();
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Linea) {
             AbreCatalago_Linea();
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Categoria) {
             AbreCatalago_Categoria();
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Puestos) {
             AbreCatalago_Puestos();
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Persona) {
-
+            
             AbreCatalago_Persona();
-
+            
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Empleado) {
-
+            
             AbreCatalago_Empleado();
-
+            
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Cliente) {
-
+            
             AbreCatalago_Cliente();
-
+            
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Platillo) {
-
+            
             AbreCatalago_Platillo();
-
+            
         }
         if (e.getSource() == MDI.sub_mnu_Proveedor) {
-
+            
             AbreCatalago_Proveedor();
-
+            
         }
-
+        
         if (e.getSource() == MDI.sub_mnu_Prove_Productos) {
-
+            
             AbreCatalago_Producto();
-
+            
         }
-
+        
+        if (e.getSource() == MDI.sub_mnu_Ventas) {
+            
+            AbreCatalago_Ventas();
+            
+        }
+        
     }
-
+    
     public void AbreCatalago_Sucursal() throws SQLException {
         if (Sucursal == null || Sucursal.isClosed()) {
             Sucursal = new Frm_Catalogo_Sucursal();
@@ -185,15 +204,16 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Sucursal.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Sucursal);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Sucursal.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Area() {
         if (Area == null || Area.isClosed()) {
             Area = new Frm_Catalogo_Area();
@@ -210,29 +230,29 @@ public class Ctrl_MDI implements ActionListener {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Area.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Marca() {
         if (Marca == null || Marca.isClosed()) {
             Marca = new Frm_Catalogo_Marca();
             DAOl_Marca Mo = new DAOl_Marca();
             VO_Marca Mo_VO = new VO_Marca();
             Frm_Marca_Edit form = new Frm_Marca_Edit();
-
+            
             Ctrl_Marca ctrl = new Ctrl_Marca(Mo, Marca, Mo_VO, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Marca.setSize(x, y);
-
+           // MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Marca);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Marca.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Linea() {
         if (Linea == null || Linea.isClosed()) {
             Linea = new Frm_Catalogo_Linea();
@@ -243,15 +263,15 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Linea.setSize(x, y);
-
+           // MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Linea);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Linea.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Categoria() {
         if (Categoria == null || Categoria.isClosed()) {
             Categoria = new Frm_Catalogo_Categoria_Platillo();
@@ -262,15 +282,15 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Categoria.setSize(x, y);
-
+           // MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Categoria);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Categoria.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Puestos() {
         if (Puestos == null || Puestos.isClosed()) {
             Puestos = new Frm_Catalogo_Puesto();
@@ -281,17 +301,17 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Puestos.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Puestos);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Puestos.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Persona() {
-
+        
         if (Persona == null || Persona.isClosed()) {
             Persona = new Frm_Catalogo_Persona();
             DAO_Persona Mo = new DAO_Persona();
@@ -301,17 +321,17 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Persona.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Persona);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Persona.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Empleado() {
-
+        
         if (Empelado == null || Empelado.isClosed()) {
             Empelado = new Frm_Catalogo_Empleado();
             DAO_Empleado Mo = new DAO_Empleado();
@@ -322,17 +342,17 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Empelado.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Empelado);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Empelado.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Cliente() {
-
+        
         if (Cliente == null || Cliente.isClosed()) {
             Cliente = new Frm_Catalogo_Cliente();
             DAO_Cliente Mo = new DAO_Cliente();
@@ -343,15 +363,15 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Cliente.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Cliente);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Cliente.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Platillo() {
         if (Platillo == null || Platillo.isClosed()) {
             Platillo = new Frm_Catalogo_Platillo();
@@ -363,35 +383,35 @@ public class Ctrl_MDI implements ActionListener {
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Platillo.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Platillo);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Platillo.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Proveedor() {
         if (Proveedor == null || Proveedor.isClosed()) {
             Proveedor = new Frm_Catalogo_Proveedor();
             DAO_Proveedor Mo = new DAO_Proveedor();
             Frm_Proveedor_Edit form = new Frm_Proveedor_Edit();
             VO_Proveedor vo = new VO_Proveedor();
-
+            
             Ctrl_Proveedor ctrl = new Ctrl_Proveedor(Mo, vo, Proveedor, form);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Proveedor.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Proveedor);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Proveedor.setVisible(true);
-
+        
     }
-
+    
     public void AbreCatalago_Producto() {
         if (Producto == null || Producto.isClosed()) {
             Producto = new Frm_Catalogo_Producto_Proveedor();
@@ -399,18 +419,40 @@ public class Ctrl_MDI implements ActionListener {
             Frm_Producto_Proveedor_Edit form = new Frm_Producto_Proveedor_Edit();
             VO_Producto_Proveedor vo = new VO_Producto_Proveedor();
             Frm_Tablas tabla = new Frm_Tablas();
-
+            
             Ctrl_Producto_Proveedor ctrl = new Ctrl_Producto_Proveedor(Mo, vo, Producto, form, tabla);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             Producto.setSize(x, y);
-
+            MDI.jDesktopPane1.removeAll();
             MDI.jDesktopPane1.add(Producto);
         } else {
             JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
         }
         Producto.setVisible(true);
-
+        
     }
-
+    
+    public void AbreCatalago_Ventas() {
+        if (Ventas == null || Ventas.isClosed()) {
+            Ventas = new Frm_Ventas();
+            DAO_Ventas Mo = new DAO_Ventas();
+            Frm_Producto_Proveedor_Edit form = new Frm_Producto_Proveedor_Edit();
+            VO_Venta vo = new VO_Venta();
+            VO_Venta_Detalle vo_Deta = new VO_Venta_Detalle();
+            Frm_Tablas tabla = new Frm_Tablas();
+            
+            Ctrl_Ventas ctrl = new Ctrl_Ventas(Mo, vo, vo_Deta, Ventas, tabla, this.ID_SUCURSAL, this.NOMBRE, Integer.valueOf(Dato[0]));
+            int x = MDI.jDesktopPane1.getWidth();
+            int y = MDI.jDesktopPane1.getHeight();
+            Ventas.setSize(x, y);
+            //MDI.jDesktopPane1.removeAll();
+            MDI.jDesktopPane1.add(Ventas);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        Ventas.setVisible(true);
+        
+    }
+    
 }

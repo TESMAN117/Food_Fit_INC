@@ -65,9 +65,9 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
         this.Categoria.Btn_Mostrar.addActionListener(this);
         this.Categoria.Btn_Salir.addActionListener(this);
 
-        this.form.txt_Categoria_nombre.addActionListener(this);
+        
         this.form.btn_Examinar.addActionListener(this);
-        this.form.txt_Foto.setEditable(false);
+        
         this.form.btn_Insertar.addActionListener(this);
         this.form.btn_Cancelar.addActionListener(this);
         this.form.btn_Actualizar.addActionListener(this);

@@ -26,9 +26,9 @@ import javax.swing.JOptionPane;
  */
 public class Cls_Conexion {
 
-    Connection conect = null;
+    private static Connection conect = null;
 
-    private Boolean state = false;
+    private static Boolean state = false;
 
     public Boolean getState() {
         return state;
@@ -36,9 +36,9 @@ public class Cls_Conexion {
 
     JFrame DS;
 
-    String cade = "";
-    String usuario = "";
-    String passwor = "";
+    private static String cade = "";
+    private static String usuario = "";
+    private static String passwor = "";
 
     /* public Connection conexion(JFrame formulario) {
         this.DS = formulario;
@@ -46,9 +46,12 @@ public class Cls_Conexion {
         leerArchivo();
         return conect;
     }*/
-    public Connection conexion() {
+    public static Connection conexion() {
 
-        leerArchivo();
+        if (conect == null) {
+             leerArchivo();
+        }
+
         return conect;
     }
 
@@ -81,7 +84,7 @@ public class Cls_Conexion {
     }
 
     //crea el archivo en disco, retorna la lista de estudiantes
-    public boolean leerArchivo() {
+    public static boolean leerArchivo() {
         // crea el flujo para leer desde el archivo
         File file = new File("src\\servidor.txt");
         if (file.exists() == true) {

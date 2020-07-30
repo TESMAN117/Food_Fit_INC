@@ -10,6 +10,10 @@ import Modelo.VO.VO_Cliente;
 import Vista.Frm_Catalogo_Cliente;
 import Vista.Frm_Cliente_Edit;
 import Vista.Frm_Tablas;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,14 +26,20 @@ import java.nio.file.Files;
 import java.sql.ResultSet;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Clientes implements ActionListener {
+public class Ctrl_Clientes extends Celdas implements ActionListener {
 
     DAO_Cliente Modelo;
     VO_Cliente vo_cliente;
@@ -43,8 +53,10 @@ public class Ctrl_Clientes implements ActionListener {
         this.Cliente = Cliente;
         this.form = form;
         this.tabla_ = tabla;
-
+        this.Diseña_Tabla();
+        this.Dideña_Boton();
         this.llenaGrid();
+        this.Cliente.setIMG("src\\Multimedia\\fondo.jpg");
 
         this.Cliente.btn_Insertar.addActionListener(this);
         this.Cliente.Btn_Actualizar.addActionListener(this);
@@ -105,6 +117,7 @@ public class Ctrl_Clientes implements ActionListener {
         form.setIconImage(img);
         form.Lbl_Titulo.setText("Agregar Cliente");
         form.btn_Actualizar.setVisible(false);
+        this.form.setIMG("src\\Multimedia\\sample_ea42611ea5602605061baa072b14227514a882c6.jpg");
         form.lbl_ID.setVisible(false);
 
         form.btn_Insertar.setVisible(true);
@@ -124,7 +137,7 @@ public class Ctrl_Clientes implements ActionListener {
             form.setTitle("Formulario Actualizar Cliente");
             Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
             form.setIconImage(img);
-
+            this.form.setIMG("src\\Multimedia\\sample_ea42611ea5602605061baa072b14227514a882c6.jpg");
             form.txt_Nombre.setText(Cliente.Tbl_Cliente.getValueAt(Cliente.Tbl_Cliente.getSelectedRow(), 1).toString());
             form.txt_Apellidos.setText(Cliente.Tbl_Cliente.getValueAt(Cliente.Tbl_Cliente.getSelectedRow(), 2).toString());
             form.lbl_ID.setText(Cliente.Tbl_Cliente.getValueAt(Cliente.Tbl_Cliente.getSelectedRow(), 0).toString());
@@ -291,7 +304,6 @@ public class Ctrl_Clientes implements ActionListener {
                     String part1 = parts[0];
                     String part2 = parts[1];
                     String part3 = parts[2];
-                    
 
                     form.txt_Nombre.setText(part1);
                     form.txt_Apellidos.setText(part2 + " " + part3);
@@ -337,6 +349,90 @@ public class Ctrl_Clientes implements ActionListener {
 
         form.txt_Nombre.setText("");
         form.txt_Apellidos.setText("");
+
+    }
+
+    public void Diseña_Tabla() {
+
+        this.Cliente.Tbl_Cliente.getTableHeader().setReorderingAllowed(false);
+        this.Cliente.Tbl_Cliente.setRowHeight(28);//tamaño de las celdas
+        this.Cliente.Tbl_Cliente.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = this.Cliente.Tbl_Cliente.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        this.Cliente.Tbl_Cliente.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < this.Cliente.Tbl_Cliente.getColumnCount(); i++) {
+
+            this.Cliente.Tbl_Cliente.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+    public void Dideña_Boton() {
+
+        ImageIcon insert_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\guardar-el-archivo.png");
+        ImageIcon insert_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_2.png");
+        ImageIcon insert_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_3.png");
+
+        ImageIcon Update_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\actualizar.png");
+        ImageIcon Update_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_2.png");
+        ImageIcon Update_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_3.png");
+
+        ImageIcon Del_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\eliminar.png");
+        ImageIcon Del_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_2.png");
+        ImageIcon Del_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_3.png");
+
+        ImageIcon ver_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\ojo.png");
+        ImageIcon ver_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_2.png");
+        ImageIcon ver_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_3.png");
+
+        ImageIcon Salir_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\cerrar-sesion.png");
+
+        this.Cliente.btn_Insertar.setIcon(insert_Btn1);
+        this.Cliente.btn_Insertar.setBorderPainted(true);
+        this.Cliente.btn_Insertar.setRolloverIcon(insert_Btn2);
+        this.Cliente.btn_Insertar.setPressedIcon(insert_Btn3);
+
+        this.Cliente.Btn_Actualizar.setIcon(Update_Btn1);
+        this.Cliente.Btn_Actualizar.setBorderPainted(false);
+        this.Cliente.Btn_Actualizar.setRolloverIcon(Update_Btn2);
+        this.Cliente.Btn_Actualizar.setPressedIcon(Update_Btn3);
+
+        this.Cliente.Btn_Eliminar.setIcon(Del_Btn1);
+        this.Cliente.Btn_Eliminar.setBorderPainted(false);
+        this.Cliente.Btn_Eliminar.setRolloverIcon(Del_Btn2);
+        this.Cliente.Btn_Eliminar.setPressedIcon(Del_Btn3);
+
+        this.Cliente.Btn_Mostrar.setIcon(ver_Btn1);
+        this.Cliente.Btn_Mostrar.setBorderPainted(false);
+        this.Cliente.Btn_Mostrar.setRolloverIcon(ver_Btn2);
+        this.Cliente.Btn_Mostrar.setPressedIcon(ver_Btn3);
+
+        this.Cliente.Btn_Salir.setIcon(Salir_Btn1);
 
     }
 }

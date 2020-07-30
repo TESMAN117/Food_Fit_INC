@@ -5,11 +5,13 @@
  */
 package Vista;
 
+import food_fit_inc.Frame_Interno;
+
 /**
  *
  * @author jesus
  */
-public class Frm_Ventas extends javax.swing.JInternalFrame {
+public class Frm_Ventas extends Frame_Interno {
 
     /**
      * Creates new form Frm_Ventas

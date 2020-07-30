@@ -17,12 +17,10 @@ import java.sql.Statement;
  */
 public class DAO_Login {
 
-    Cls_Conexion conec = new Cls_Conexion();
-
-    private Connection cnn;
+    private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Iniciar_sesion(VO_Login x) {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_usuario WHERE vch_Usuario = '" + x.getUser() + "' AND vch_Password = '" + x.getPass() + "';";
 
@@ -41,7 +39,7 @@ public class DAO_Login {
     }
 
     public ResultSet Sucursal() {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_sucursal;";
 

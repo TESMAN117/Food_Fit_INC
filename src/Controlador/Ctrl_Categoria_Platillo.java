@@ -12,6 +12,10 @@ import Vista.Frm_Catalogo_Categoria_Platillo;
 import Vista.Frm_Catalogo_Puesto;
 import Vista.Frm_Categoria_Platillo_Edit;
 import Vista.Frm_Marca_Edit;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -32,16 +36,22 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Categoria_Platillo implements ActionListener {
+public class Ctrl_Categoria_Platillo extends Celdas implements ActionListener {
 
     File fichero = null;
     File dest;
@@ -58,16 +68,18 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
         this.Categoria = Categoria;
         this.vo_categoria = vo_categoria;
         this.form = form;
+        this.Diseña_Tabla();
         llenaGrid();
+
+        this.Categoria.setIMG("src\\Multimedia\\fondo.jpg");
         this.Categoria.btn_Insertar.addActionListener(this);
         this.Categoria.Btn_Actualizar.addActionListener(this);
         this.Categoria.Btn_Eliminar.addActionListener(this);
         this.Categoria.Btn_Mostrar.addActionListener(this);
         this.Categoria.Btn_Salir.addActionListener(this);
 
-        
         this.form.btn_Examinar.addActionListener(this);
-        
+
         this.form.btn_Insertar.addActionListener(this);
         this.form.btn_Cancelar.addActionListener(this);
         this.form.btn_Actualizar.addActionListener(this);
@@ -392,5 +404,47 @@ public class Ctrl_Categoria_Platillo implements ActionListener {
         form.Lbl_IMG_Cat.setIcon(null);
         form.lbl_Titulo.setText("Datos Categoria");
     }
+
+    public void Diseña_Tabla() {
+
+        this.Categoria.Tbl_Categoria.getTableHeader().setReorderingAllowed(false);
+        this.Categoria.Tbl_Categoria.setRowHeight(28);//tamaño de las celdas
+        this.Categoria.Tbl_Categoria.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = this.Categoria.Tbl_Categoria.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        this.Categoria.Tbl_Categoria.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < this.Categoria.Tbl_Categoria.getColumnCount(); i++) {
+
+            this.Categoria.Tbl_Categoria.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+   
 
 }

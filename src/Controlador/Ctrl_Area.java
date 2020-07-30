@@ -9,6 +9,10 @@ import Modelo.DAO.DAO_Area;
 import Modelo.VO.VO_Area;
 import Vista.Frm_Area_Edit;
 import Vista.Frm_Catalogo_Area;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,14 +22,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Area implements ActionListener {
+public class Ctrl_Area extends Celdas implements ActionListener {
 
     DAO_Area Modelo_Area;
     Frm_Catalogo_Area Area_;
@@ -37,7 +48,10 @@ public class Ctrl_Area implements ActionListener {
         this.Area_ = Area;
         this.vo_Area = vo_Area;
         this.form = form;
+        
+        this.Diseña_Tabla();
         llenaGrid();
+        this.Area_.setIMG("src\\Multimedia\\fondo.jpg");
         this.Area_.btn_Insertar.addActionListener(this);
         this.Area_.Btn_Actualizar.addActionListener(this);
         this.Area_.Btn_Eliminar.addActionListener(this);
@@ -93,6 +107,7 @@ public class Ctrl_Area implements ActionListener {
         form.btn_Actualizar.setVisible(false);
         form.lbl_ID.setVisible(false);
         form.btn_Insertar.setVisible(true);
+        form.setLocation(225,175);
         llenaGrid();
 
         form.setVisible(true);
@@ -259,5 +274,47 @@ public class Ctrl_Area implements ActionListener {
         form.lbl_ID.setText("ID");
         form.lbl_Titulo.setText("Datos Area");
     }
+
+    public void Diseña_Tabla() {
+
+        this.Area_.Tbl_Area.getTableHeader().setReorderingAllowed(false);
+        this.Area_.Tbl_Area.setRowHeight(28);//tamaño de las celdas
+        this.Area_.Tbl_Area.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = this.Area_.Tbl_Area.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        this.Area_.Tbl_Area.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < this.Area_.Tbl_Area.getColumnCount(); i++) {
+
+            this.Area_.Tbl_Area.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+   
 
 }

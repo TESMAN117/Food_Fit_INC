@@ -17,11 +17,10 @@ import java.sql.Statement;
  */
 public class DAO_Platillo {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+   private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta(String tipo) {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "";
         if ("Platillo".equals(tipo)) {
@@ -59,7 +58,7 @@ public class DAO_Platillo {
     }
 
     public ResultSet Consulta(int tipo) {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_platillo WHERE int_ID_Platillo = " + tipo + ";";
 

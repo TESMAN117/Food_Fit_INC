@@ -27,11 +27,10 @@ import org.json.simple.parser.ParseException;
  */
 public class DAO_Sucursal {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+  private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta_Sucursal() {
-        cnn = conec.conexion();
+       
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_sucursal;";
 

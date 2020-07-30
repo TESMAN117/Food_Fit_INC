@@ -18,11 +18,10 @@ import java.sql.Statement;
  */
 public class DAOl_Marca {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+   private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta_Marca() {
-        cnn = conec.conexion();
+       
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_marca_producto ORDER BY int_Id_marca";
 

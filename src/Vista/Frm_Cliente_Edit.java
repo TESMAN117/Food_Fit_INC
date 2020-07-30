@@ -5,14 +5,18 @@
  */
 package Vista;
 
+import food_fit_inc.Frame_Dialog;
+
 /**
  *
  * @author jesus
  */
-public class Frm_Cliente_Edit extends javax.swing.JDialog {
+public class Frm_Cliente_Edit extends Frame_Dialog {
 
     /**
      * Creates new form Frm_Cliente_Edit
+     * @param parent
+     * @param modal
      */
     public Frm_Cliente_Edit(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -45,7 +49,8 @@ public class Frm_Cliente_Edit extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
+        jPanel1.setOpaque(false);
 
         btn_Actualizar.setText("Actualizar");
 

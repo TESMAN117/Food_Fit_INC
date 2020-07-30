@@ -5,11 +5,13 @@
  */
 package Vista;
 
+import food_fit_inc.Frame_Fondo;
+
 /**
  *
  * @author jesus
  */
-public class frm_Login extends javax.swing.JFrame {
+public class frm_Login extends Frame_Fondo {
 
     /**
      * Creates new form frm_Login
@@ -56,7 +58,7 @@ public class frm_Login extends javax.swing.JFrame {
 
         Btn_Start.setText("Conectar");
 
-        txt_pass.setText("mcel20dj");
+        txt_pass.setText("Mcel2#$dja");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

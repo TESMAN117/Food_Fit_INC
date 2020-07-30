@@ -10,6 +10,10 @@ import Modelo.VO.VO_Venta;
 import Modelo.VO.VO_Venta_Detalle;
 import Vista.Frm_Tablas;
 import Vista.Frm_Ventas;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -26,17 +30,21 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Ventas implements ActionListener {
+public class Ctrl_Ventas extends Celdas implements ActionListener {
 
     DAO_Ventas Modelo;
     VO_Venta vo_ventas;
@@ -69,6 +77,11 @@ public class Ctrl_Ventas implements ActionListener {
         this.pinta_categorias();
         this.Ventas.lbl_Total.setText("0.0");
         this.Saca_Serie();
+
+        this.Diseña_Tabla(this.Ventas.tbl_Compra);
+        
+
+        this.Ventas.setIMG("src\\Multimedia\\fondo.jpg");
 
         this.Ventas.txt_Sucursal.setText(SUCURSAL);
         this.Ventas.lbl_Sucursal.setText(String.valueOf(ID_SUCURSAL));
@@ -436,7 +449,8 @@ public class Ctrl_Ventas implements ActionListener {
         ImageIcon icon = new ImageIcon("src\\Multimedia\\1063064.png");
         this.Ventas.lbl_Imagen.setText(null);
         this.Ventas.lbl_Imagen.setSize(129, 107);
-        Icon icono = new ImageIcon(icon.getImage().getScaledInstance(Ventas.lbl_Imagen.getWidth(), Ventas.lbl_Imagen.getHeight(), Image.SCALE_DEFAULT));
+        Icon icono = new ImageIcon(icon.getImage().getScaledInstance(Ventas.lbl_Imagen.getWidth(), Ventas.lbl_Imagen.getHeight(),
+                Image.SCALE_DEFAULT));
         this.Ventas.lbl_Imagen.setIcon(icono);
 
     }
@@ -538,5 +552,47 @@ public class Ctrl_Ventas implements ActionListener {
         }
 
     }
+
+    public void Diseña_Tabla(JTable Tabla) {
+
+        Tabla.getTableHeader().setReorderingAllowed(false);
+        Tabla.setRowHeight(28);//tamaño de las celdas
+        Tabla.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = Tabla.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        Tabla.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+   
 
 }

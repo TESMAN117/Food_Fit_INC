@@ -17,11 +17,10 @@ import java.sql.Statement;
  */
 public class DAO_Producto_Proveedor {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+    private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta(String opcion) {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = " ";
 
@@ -60,7 +59,7 @@ public class DAO_Producto_Proveedor {
     }
 
     public ResultSet Consulta(int opcion) {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_producto_proveedor WHERE int_ID_Producto_Proveedor = " + opcion + ";";
 

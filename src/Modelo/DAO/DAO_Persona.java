@@ -17,11 +17,10 @@ import java.sql.Statement;
  */
 public class DAO_Persona {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+    private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta_Persona(String Opcion) {
-        cnn = conec.conexion();
+
         ResultSet rs = null;
         String consulta = "";
         if (Opcion.equals("Tabla")) {

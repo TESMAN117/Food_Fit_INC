@@ -145,7 +145,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="txt_pass">
       <Properties>
-        <Property name="text" type="java.lang.String" value="mcel20dj"/>
+        <Property name="text" type="java.lang.String" value="Mcel2#$dja"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

@@ -18,11 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class DAO_Empleado {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+    private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta_Empleado(String opcion) {
-        cnn = conec.conexion();
+
         ResultSet rs = null;
         String consulta = " ";
         if ("Empleado".equals(opcion)) {
@@ -69,7 +68,7 @@ public class DAO_Empleado {
     }
 
     public ResultSet Consulta_Especifica(int opcion) {
-        cnn = conec.conexion();
+
         ResultSet rs = null;
         String consulta = "select int_ID_Empleado,CLV_Persona,vch_Nombre_Persona,vch_A_Paterno,\n"
                 + "vch_A_Materno,CLV_Puesto,vch_Puesto,CLV_Area,vch_Area,CLV_Jefe,\n"
@@ -94,7 +93,7 @@ public class DAO_Empleado {
     }
 
     public ResultSet Consulta_Jefe(int opcion) {
-        cnn = conec.conexion();
+
         ResultSet rs = null;
         String consulta = "";
 
@@ -146,9 +145,10 @@ public class DAO_Empleado {
     }
 
     public int Actualiza_Empleado(VO_Empleado x) {
+        
         JOptionPane.showMessageDialog(null, "Con IMG");
-        JOptionPane.showMessageDialog(null, x.getCLV_Persona() +" "+x.getCLV_Puesto() +" "+x.getCLV_Area() +" "
-        +x.getCLV_Jefe() +" "+x.getImg_Foto_Empleado() +" "+x.getID_Emleado() +" ");
+        JOptionPane.showMessageDialog(null, x.getCLV_Persona() + " " + x.getCLV_Puesto() + " " + x.getCLV_Area() + " "
+                + x.getCLV_Jefe() + " " + x.getImg_Foto_Empleado() + " " + x.getID_Emleado() + " ");
         int r = 0;
         String Actualizar = "UPDATE tbl_empleado\n"
                 + "SET \n"
@@ -171,7 +171,7 @@ public class DAO_Empleado {
     }
 
     public int Actualiza_EmpleadoSIMG(VO_Empleado x) {
-        
+
         JOptionPane.showMessageDialog(null, "Sin IMG");
         int r = 0;
         String Actualizar = "UPDATE tbl_empleado\n"

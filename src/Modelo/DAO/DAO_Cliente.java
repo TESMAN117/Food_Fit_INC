@@ -17,11 +17,10 @@ import java.sql.Statement;
  */
 public class DAO_Cliente {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
+   private Connection cnn = Cls_Conexion.conexion();
 
     public ResultSet Consulta() {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT int_ID_Cliente,vch_Nombre_Persona,vch_A_Paterno,vch_A_Materno FROM tbl_cliente INNER JOIN tbl_persona ON CLV_Persona_Cliente = int_ID_Persona;";
 
@@ -40,7 +39,7 @@ public class DAO_Cliente {
     }
 
     public ResultSet Consulta_Persona() {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT  * FROM tbl_persona;";
 

@@ -5,11 +5,13 @@
  */
 package Vista;
 
+import food_fit_inc.Frame_Interno;
+
 /**
  *
  * @author jesus
  */
-public class Frm_Catalogo_Producto_Proveedor extends javax.swing.JInternalFrame {
+public class Frm_Catalogo_Producto_Proveedor extends Frame_Interno  {
 
     /**
      * Creates new form Frm_Area
@@ -38,6 +40,8 @@ public class Frm_Catalogo_Producto_Proveedor extends javax.swing.JInternalFrame 
         Tbl_Producto = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Productos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 20))); // NOI18N
+        jPanel1.setOpaque(false);
 
         Btn_Actualizar.setText("Actualizar");
 
@@ -117,7 +121,7 @@ public class Frm_Catalogo_Producto_Proveedor extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

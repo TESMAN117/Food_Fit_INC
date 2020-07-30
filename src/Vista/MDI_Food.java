@@ -35,6 +35,8 @@ public class MDI_Food extends javax.swing.JFrame {
         sub_mnu_Categoria = new javax.swing.JMenuItem();
         sub_mnu_Platillo = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        sub_mnu_Proveedor = new javax.swing.JMenuItem();
+        sub_mnu_Prove_Productos = new javax.swing.JMenuItem();
         sub_mnu_Marca = new javax.swing.JMenuItem();
         sub_mnu_Linea = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -44,13 +46,13 @@ public class MDI_Food extends javax.swing.JFrame {
         sub_mnu_Persona = new javax.swing.JMenuItem();
         sub_mnu_Empleado = new javax.swing.JMenuItem();
         sub_mnu_Cliente = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        sub_mnu_Proveedor = new javax.swing.JMenuItem();
-        sub_mnu_Prove_Productos = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         sub_mnu_Ventas = new javax.swing.JMenuItem();
         sub_mnu_Detalle_Ventas = new javax.swing.JMenuItem();
         sub_mnu_Corte_Caja = new javax.swing.JMenuItem();
+        Mnu_Mis_Datos = new javax.swing.JMenu();
+        Sub_mnu_Ver = new javax.swing.JMenuItem();
+        Mnu_Salir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -95,6 +97,12 @@ public class MDI_Food extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/vegetal.png"))); // NOI18N
         jMenu3.setText("Productos");
 
+        sub_mnu_Proveedor.setText("Proveedor");
+        jMenu3.add(sub_mnu_Proveedor);
+
+        sub_mnu_Prove_Productos.setText("Productos");
+        jMenu3.add(sub_mnu_Prove_Productos);
+
         sub_mnu_Marca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/marca.png"))); // NOI18N
         sub_mnu_Marca.setText("Marca");
         jMenu3.add(sub_mnu_Marca);
@@ -128,16 +136,6 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu6.setText("Proveedores");
-
-        sub_mnu_Proveedor.setText("Proveedor");
-        jMenu6.add(sub_mnu_Proveedor);
-
-        sub_mnu_Prove_Productos.setText("Productos");
-        jMenu6.add(sub_mnu_Prove_Productos);
-
-        jMenuBar1.add(jMenu6);
-
         jMenu7.setText("Ventas");
 
         sub_mnu_Ventas.setText("Venta");
@@ -150,6 +148,16 @@ public class MDI_Food extends javax.swing.JFrame {
         jMenu7.add(sub_mnu_Corte_Caja);
 
         jMenuBar1.add(jMenu7);
+
+        Mnu_Mis_Datos.setText("Mis Datos");
+
+        Sub_mnu_Ver.setText("Ver");
+        Mnu_Mis_Datos.add(Sub_mnu_Ver);
+
+        jMenuBar1.add(Mnu_Mis_Datos);
+
+        Mnu_Salir.setText("Salir");
+        jMenuBar1.add(Mnu_Salir);
 
         setJMenuBar(jMenuBar1);
 
@@ -173,13 +181,15 @@ public class MDI_Food extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenu Mnu_Mis_Datos;
+    public javax.swing.JMenu Mnu_Salir;
+    public javax.swing.JMenuItem Sub_mnu_Ver;
     public static final javax.swing.JDesktopPane jDesktopPane1 = new javax.swing.JDesktopPane();
     public javax.swing.JMenu jMenu1;
     public javax.swing.JMenu jMenu2;
     public javax.swing.JMenu jMenu3;
     public javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator3;

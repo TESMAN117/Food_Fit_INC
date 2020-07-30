@@ -21,9 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DAO_Ventas {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn = conec.conexion();
-
+  private Connection cnn = Cls_Conexion.conexion();
     public ResultSet Consulta_Categorias() {
 
         ResultSet rs = null;
@@ -113,8 +111,7 @@ public class DAO_Ventas {
         int r = 0;
         int idGenerado = 0;
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-        //float total = 0;
-        // String numero = "Vnt_" + Serie();
+        
 
         try {
 

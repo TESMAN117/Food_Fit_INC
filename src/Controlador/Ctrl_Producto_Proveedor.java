@@ -12,6 +12,10 @@ import Vista.Frm_Empleado_Edit;
 import Vista.Frm_Producto_Proveedor_Edit;
 import Vista.Frm_Tablas;
 import com.toedter.calendar.JDateChooser;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,14 +29,21 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Producto_Proveedor implements ActionListener {
+public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
 
     DAO_Producto_Proveedor Modelo;
     VO_Producto_Proveedor vo_producto;
@@ -48,7 +59,10 @@ public class Ctrl_Producto_Proveedor implements ActionListener {
         this.Producto = Producto;
         this.form = from;
         this.tabla = tabla;
+        this.Diseña_Tabla(this.Producto.Tbl_Producto);
+        this.Dideña_Boton();
         this.llenaGrid();
+        this.Producto.setIMG("src\\Multimedia\\fondo.jpg");
         this.Producto.btn_Insertar.addActionListener(this);
         this.Producto.Btn_Actualizar.addActionListener(this);
         this.Producto.Btn_Eliminar.addActionListener(this);
@@ -557,5 +571,89 @@ public class Ctrl_Producto_Proveedor implements ActionListener {
 
             System.out.println(e);
         }
+    }
+    
+    public void Diseña_Tabla(JTable Tabla) {
+
+        Tabla.getTableHeader().setReorderingAllowed(false);
+        Tabla.setRowHeight(28);//tamaño de las celdas
+        Tabla.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = Tabla.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        Tabla.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < Tabla.getColumnCount(); i++) {
+
+            Tabla.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+    public void Dideña_Boton() {
+
+        ImageIcon insert_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\guardar-el-archivo.png");
+        ImageIcon insert_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_2.png");
+        ImageIcon insert_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_3.png");
+
+        ImageIcon Update_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\actualizar.png");
+        ImageIcon Update_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_2.png");
+        ImageIcon Update_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_3.png");
+
+        ImageIcon Del_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\eliminar.png");
+        ImageIcon Del_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_2.png");
+        ImageIcon Del_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_3.png");
+
+        ImageIcon ver_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\ojo.png");
+        ImageIcon ver_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_2.png");
+        ImageIcon ver_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_3.png");
+
+        ImageIcon Salir_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\cerrar-sesion.png");
+
+        this.Producto.btn_Insertar.setIcon(insert_Btn1);
+        this.Producto.btn_Insertar.setBorderPainted(true);
+        this.Producto.btn_Insertar.setRolloverIcon(insert_Btn2);
+        this.Producto.btn_Insertar.setPressedIcon(insert_Btn3);
+
+        this.Producto.Btn_Actualizar.setIcon(Update_Btn1);
+        this.Producto.Btn_Actualizar.setBorderPainted(false);
+        this.Producto.Btn_Actualizar.setRolloverIcon(Update_Btn2);
+        this.Producto.Btn_Actualizar.setPressedIcon(Update_Btn3);
+
+        this.Producto.Btn_Eliminar.setIcon(Del_Btn1);
+        this.Producto.Btn_Eliminar.setBorderPainted(false);
+        this.Producto.Btn_Eliminar.setRolloverIcon(Del_Btn2);
+        this.Producto.Btn_Eliminar.setPressedIcon(Del_Btn3);
+
+        this.Producto.Btn_Mostrar.setIcon(ver_Btn1);
+        this.Producto.Btn_Mostrar.setBorderPainted(false);
+        this.Producto.Btn_Mostrar.setRolloverIcon(ver_Btn2);
+        this.Producto.Btn_Mostrar.setPressedIcon(ver_Btn3);
+
+        this.Producto.Btn_Salir.setIcon(Salir_Btn1);
+
     }
 }

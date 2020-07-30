@@ -10,6 +10,10 @@ import Modelo.VO.VO_Marca;
 import Vista.Frm_Catalogo_Marca;
 import Vista.Frm_Marca_Edit;
 import Vista.Frm_Persona_Edit;
+import food_fit_inc.Celdas;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -19,14 +23,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author jesus
  */
-public class Ctrl_Marca implements ActionListener {
+public class Ctrl_Marca extends Celdas implements ActionListener {
 
     DAOl_Marca Modelo_Marca;
     Frm_Catalogo_Marca Marca_;
@@ -38,7 +49,10 @@ public class Ctrl_Marca implements ActionListener {
         this.Marca_ = Marca_;
         this.vo_Marca = vo_Marca;
         this.form = form;
-        llenaGrid();
+        this.Diseña_Tabla();
+        this.Dideña_Boton();
+        this.llenaGrid();
+        this.Marca_.setIMG("src\\Multimedia\\fondo.jpg");
         this.Marca_.btn_Insertar.addActionListener(this);
         this.Marca_.Btn_Actualizar.addActionListener(this);
         this.Marca_.Btn_Eliminar.addActionListener(this);
@@ -260,6 +274,90 @@ public class Ctrl_Marca implements ActionListener {
         form.txt_Marca_nombre.setText("");
         form.lbl_ID.setText("");
         form.lbl_Titulo.setText("Datos Marca");
+    }
+
+    public void Diseña_Tabla() {
+
+        this.Marca_.Tbl_Marca.getTableHeader().setReorderingAllowed(false);
+        this.Marca_.Tbl_Marca.setRowHeight(28);//tamaño de las celdas
+        this.Marca_.Tbl_Marca.setGridColor(new java.awt.Color(0, 0, 0));
+        JTableHeader jtableHeader = this.Marca_.Tbl_Marca.getTableHeader();
+        jtableHeader.setDefaultRenderer(new TableCellRenderer() {
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JComponent jcomponent = null;
+
+                if (value instanceof String) {
+                    jcomponent = new JLabel((String) value);
+                    ((JLabel) jcomponent).setHorizontalAlignment(SwingConstants.CENTER);
+                    ((JLabel) jcomponent).setSize(30, jcomponent.getWidth());
+                    ((JLabel) jcomponent).setPreferredSize(new Dimension(6, jcomponent.getWidth()));
+                }
+
+                //jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(221, 211, 211)));
+                jcomponent.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(255, 255, 255)));
+                jcomponent.setOpaque(true);
+                //jcomponent.setBackground( new Color(236,234,219) );
+                //jcomponent.setBackground(new Color(65, 65, 65));
+                jcomponent.setBackground(Color.decode("#9DE7A3"));
+                jcomponent.setToolTipText("Tabla Seguimiento");
+                jcomponent.setForeground(Color.black);
+
+                return jcomponent;
+            }
+        });
+
+        this.Marca_.Tbl_Marca.setTableHeader(jtableHeader);
+
+        for (int i = 0; i < this.Marca_.Tbl_Marca.getColumnCount(); i++) {
+
+            this.Marca_.Tbl_Marca.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
+        }
+    }
+
+    public void Dideña_Boton() {
+
+        ImageIcon insert_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\guardar-el-archivo.png");
+        ImageIcon insert_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_2.png");
+        ImageIcon insert_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Guardar_32px_3.png");
+
+        ImageIcon Update_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\actualizar.png");
+        ImageIcon Update_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_2.png");
+        ImageIcon Update_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Actualizar_32px_3.png");
+
+        ImageIcon Del_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\eliminar.png");
+        ImageIcon Del_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_2.png");
+        ImageIcon Del_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Eliminar_32px_3.png");
+
+        ImageIcon ver_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\ojo.png");
+        ImageIcon ver_Btn2 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_2.png");
+        ImageIcon ver_Btn3 = new ImageIcon("src\\Multimedia\\Botones\\btn_Mostrar_32px_3.png");
+
+        ImageIcon Salir_Btn1 = new ImageIcon("src\\Multimedia\\Botones\\cerrar-sesion.png");
+
+        this.Marca_.btn_Insertar.setIcon(insert_Btn1);
+        this.Marca_.btn_Insertar.setBorderPainted(true);
+        this.Marca_.btn_Insertar.setRolloverIcon(insert_Btn2);
+        this.Marca_.btn_Insertar.setPressedIcon(insert_Btn3);
+
+        this.Marca_.Btn_Actualizar.setIcon(Update_Btn1);
+        this.Marca_.Btn_Actualizar.setBorderPainted(false);
+        this.Marca_.Btn_Actualizar.setRolloverIcon(Update_Btn2);
+        this.Marca_.Btn_Actualizar.setPressedIcon(Update_Btn3);
+
+        this.Marca_.Btn_Eliminar.setIcon(Del_Btn1);
+        this.Marca_.Btn_Eliminar.setBorderPainted(false);
+        this.Marca_.Btn_Eliminar.setRolloverIcon(Del_Btn2);
+        this.Marca_.Btn_Eliminar.setPressedIcon(Del_Btn3);
+
+        this.Marca_.Btn_Mostrar.setIcon(ver_Btn1);
+        this.Marca_.Btn_Mostrar.setBorderPainted(false);
+        this.Marca_.Btn_Mostrar.setRolloverIcon(ver_Btn2);
+        this.Marca_.Btn_Mostrar.setPressedIcon(ver_Btn3);
+
+        this.Marca_.Btn_Salir.setIcon(Salir_Btn1);
+
     }
 
 }

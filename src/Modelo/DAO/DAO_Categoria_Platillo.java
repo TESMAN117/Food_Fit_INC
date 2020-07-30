@@ -18,11 +18,10 @@ import java.sql.Statement;
  */
 public class DAO_Categoria_Platillo {
 
-    Cls_Conexion conec = new Cls_Conexion();
-    private Connection cnn;
-
+    private Connection cnn = Cls_Conexion.conexion();
+    
     public ResultSet Consulta_Categoria() {
-        cnn = conec.conexion();
+        
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_categoria_platillo ORDER BY int_ID_Categoria_Platillo";
 

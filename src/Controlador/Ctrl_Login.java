@@ -6,7 +6,9 @@
 package Controlador;
 
 import Modelo.DAO.DAO_Login;
+import Modelo.DAO.DAO_MDI;
 import Modelo.VO.VO_Login;
+import Vista.Frm_Password_Confirm;
 import Vista.Frm_Tablas;
 import Vista.MDI_Food;
 import Vista.frm_Login;
@@ -28,6 +30,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -43,8 +46,17 @@ public class Ctrl_Login implements ActionListener {
     VO_Login vo_login;
     Frm_Tablas tabla;
 
-    int ID_SUCURSAL = 0;
-    String NOMBRE_SUCURSAL = "";
+    
+
+    public static int ID_SUCURSAL = 0;
+
+    public static String NOMBRE_SUCURSAL = "";
+
+    public static String Primera_vez = "false";
+
+    public static String Fecha_cambio = "";
+
+    public static int ID_Usuario = 0;
 
     private String Tipo_user, nick, contra;
 
@@ -55,6 +67,8 @@ public class Ctrl_Login implements ActionListener {
         this.Modelo_login = Modelo_login;
         this.vo_login = vo_login;
         this.tabla = tabla;
+        
+        this.Vista_login.setIMG("src\\Multimedia\\67611159_152587362494082_752442445936984064_o.jpg");
         this.Vista_login.Btn_Start.addActionListener(this);
         this.Vista_login.btn_Exit.addActionListener(this);
         this.Vista_login.txt_pass.addActionListener(this);
@@ -66,7 +80,9 @@ public class Ctrl_Login implements ActionListener {
         String Pass = Vista_login.txt_pass.getText();
         String User = Vista_login.txt_User.getText();
 
-        vo_login.setPass(Pass);
+        String Password_MD5 = DigestUtils.md5Hex(Pass);
+
+        vo_login.setPass(Password_MD5);
         vo_login.setUser(User);
         if ("".equals(User) || "".equals(Pass)) {
             JOptionPane.showMessageDialog(null, "Campos vacios");
@@ -79,15 +95,27 @@ public class Ctrl_Login implements ActionListener {
 
                 if (rs.next()) {
 
-                    Tipo_user = rs.getString("vch_Tipo_Usuario");
+                    Tipo_user = rs.getString("CLV_Tipo_Usuario");
+
                     nick = rs.getString("vch_Usuario");
                     contra = rs.getString("vch_Password");
                     Datos[0] = rs.getString("CLV_Empleado_User");
+
+                    this.ID_Usuario = rs.getInt("int_ID_Usuario");
+                    this.Primera_vez = rs.getString("Primera_vez");
+                    this.Fecha_cambio = rs.getString("Cambio_");
+
                     JOptionPane.showMessageDialog(null, "Bienvenido " + nick);
+                    
                     MDI = new MDI_Food();
+                    
                     MDI.setTitle("Foot Fit INC");
+                    
                     MDI.setExtendedState(this.MDI.MAXIMIZED_BOTH);
+                    
+
                     ctrl_mdi = new Ctrl_MDI(MDI, this.ID_SUCURSAL, this.NOMBRE_SUCURSAL, Datos);
+                    
                     MDI.setVisible(true);
                     try {
                         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -106,7 +134,7 @@ public class Ctrl_Login implements ActionListener {
                 }
 
             } catch (Exception e) {
-                System.out.println("errorLOG: " + e);
+                System.out.println("errorLOG:/ " + e);
             }
 
         }

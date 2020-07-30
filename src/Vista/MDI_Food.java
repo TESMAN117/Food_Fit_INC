@@ -27,6 +27,7 @@ public class MDI_Food extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         sub_mnu_Sucursal = new javax.swing.JMenuItem();
@@ -34,6 +35,7 @@ public class MDI_Food extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         sub_mnu_Categoria = new javax.swing.JMenuItem();
         sub_mnu_Platillo = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu3 = new javax.swing.JMenu();
         sub_mnu_Proveedor = new javax.swing.JMenuItem();
         sub_mnu_Prove_Productos = new javax.swing.JMenuItem();
@@ -70,6 +72,7 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/las-compras-en-linea.png"))); // NOI18N
         jMenu2.setText("Sucursal");
+        jMenu2.setMargin(new java.awt.Insets(0, 5, 0, 5));
 
         sub_mnu_Sucursal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         sub_mnu_Sucursal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/las-compras-en-linea.png"))); // NOI18N
@@ -80,6 +83,7 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/platillo.png"))); // NOI18N
         jMenu1.setText("Platillo");
+        jMenu1.setMargin(new java.awt.Insets(0, 10, 0, 10));
         jMenu1.add(jSeparator3);
 
         sub_mnu_Categoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -91,11 +95,13 @@ public class MDI_Food extends javax.swing.JFrame {
         sub_mnu_Platillo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/comida-sana.png"))); // NOI18N
         sub_mnu_Platillo.setText("Platillo");
         jMenu1.add(sub_mnu_Platillo);
+        jMenu1.add(jSeparator1);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/vegetal.png"))); // NOI18N
         jMenu3.setText("Productos");
+        jMenu3.setMargin(new java.awt.Insets(0, 10, 0, 10));
 
         sub_mnu_Proveedor.setText("Proveedor");
         jMenu3.add(sub_mnu_Proveedor);
@@ -113,7 +119,9 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Cargos.png"))); // NOI18N
         jMenu5.setText("Cargos");
+        jMenu5.setMargin(new java.awt.Insets(0, 10, 0, 10));
 
         sub_mnu_Area.setText("Area");
         jMenu5.add(sub_mnu_Area);
@@ -123,7 +131,9 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Personal.png"))); // NOI18N
         jMenu4.setText("Personal");
+        jMenu4.setMargin(new java.awt.Insets(0, 10, 0, 10));
 
         sub_mnu_Persona.setText("Persona");
         jMenu4.add(sub_mnu_Persona);
@@ -136,27 +146,36 @@ public class MDI_Food extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Ventas.png"))); // NOI18N
         jMenu7.setText("Ventas");
+        jMenu7.setMargin(new java.awt.Insets(0, 10, 0, 10));
 
+        sub_mnu_Ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Ventas.png"))); // NOI18N
         sub_mnu_Ventas.setText("Venta");
         jMenu7.add(sub_mnu_Ventas);
 
         sub_mnu_Detalle_Ventas.setText("Detalles");
         jMenu7.add(sub_mnu_Detalle_Ventas);
 
+        sub_mnu_Corte_Caja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Corte de caja.png"))); // NOI18N
         sub_mnu_Corte_Caja.setText("Corte de Caja");
         jMenu7.add(sub_mnu_Corte_Caja);
 
         jMenuBar1.add(jMenu7);
 
+        Mnu_Mis_Datos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/informacion-personal.png"))); // NOI18N
         Mnu_Mis_Datos.setText("Mis Datos");
+        Mnu_Mis_Datos.setMargin(new java.awt.Insets(0, 10, 0, 10));
 
+        Sub_mnu_Ver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/informacion-personal.png"))); // NOI18N
         Sub_mnu_Ver.setText("Ver");
         Mnu_Mis_Datos.add(Sub_mnu_Ver);
 
         jMenuBar1.add(Mnu_Mis_Datos);
 
+        Mnu_Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/salida.png"))); // NOI18N
         Mnu_Salir.setText("Salir");
+        Mnu_Salir.setMargin(new java.awt.Insets(0, 200, 0, 10));
         jMenuBar1.add(Mnu_Salir);
 
         setJMenuBar(jMenuBar1);
@@ -192,6 +211,8 @@ public class MDI_Food extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     public javax.swing.JMenuItem sub_mnu_Area;
     public javax.swing.JMenuItem sub_mnu_Categoria;

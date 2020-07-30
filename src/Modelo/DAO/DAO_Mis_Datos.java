@@ -17,7 +17,7 @@ import java.sql.Statement;
  */
 public class DAO_Mis_Datos {
 
-     private Connection cnn = Cls_Conexion.conexion();
+     private Connection cnn = Singleton_Cls_Conexion.conexion();
     
 
 

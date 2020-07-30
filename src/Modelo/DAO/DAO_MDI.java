@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class DAO_MDI {
 
-    private Connection cnn = Cls_Conexion.conexion();
+    private Connection cnn = Singleton_Cls_Conexion.conexion();
     public int Actualiza(String Pass) {
         int r = 0;
         String Actualizar = "UPDATE tbl_usuario\n"

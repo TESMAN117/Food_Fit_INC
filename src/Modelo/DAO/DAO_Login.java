@@ -10,17 +10,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 import java.sql.Statement;
+import proxy.I_Proxy;
 
 /**
  *
  * @author jesus
  */
-public class DAO_Login {
+public class DAO_Login implements I_Proxy {
 
-    private Connection cnn = Cls_Conexion.conexion();
+    private Connection cnn = Singleton_Cls_Conexion.conexion();
 
     public ResultSet Iniciar_sesion(VO_Login x) {
-        
+
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_usuario WHERE vch_Usuario = '" + x.getUser() + "' AND vch_Password = '" + x.getPass() + "';";
 
@@ -39,7 +40,7 @@ public class DAO_Login {
     }
 
     public ResultSet Sucursal() {
-        
+
         ResultSet rs = null;
         String consulta = "SELECT * FROM tbl_sucursal;";
 
@@ -55,6 +56,16 @@ public class DAO_Login {
 
         }
         return null;
+    }
+
+    @Override
+    public ResultSet I_Inicia(VO_Login x) {
+        return this.Iniciar_sesion(x);
+    }
+
+    @Override
+    public ResultSet I_Sucursal() {
+        return this.Sucursal();
     }
 
 }

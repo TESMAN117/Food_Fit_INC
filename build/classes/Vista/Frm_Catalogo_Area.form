@@ -122,6 +122,11 @@
               <Image iconType="3" name="/Multimedia/Botones/guardar-el-archivo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Insertar"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="false"/>
             <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Multimedia/Botones/btn_Guardar_32px_3.png"/>
             </Property>

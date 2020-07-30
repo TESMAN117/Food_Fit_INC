@@ -140,6 +140,8 @@ public class Ctrl_MDI implements ActionListener {
 
         this.MDI.Sub_mnu_Ver.addActionListener(this);
 
+        this.MDI.Mnu_Salir.addActionListener(this);
+
     }
 
     @Override
@@ -163,6 +165,10 @@ public class Ctrl_MDI implements ActionListener {
 
         if (e.getSource() == MDI.sub_mnu_Marca) {
             AbreCatalago_Marca();
+        }
+
+        if (e.getSource() == MDI.Mnu_Salir) {
+            System.exit(0);
         }
 
         if (e.getSource() == MDI.sub_mnu_Linea) {
@@ -518,7 +524,7 @@ public class Ctrl_MDI implements ActionListener {
             Frame_Interno Internal = new Frame_Interno();
             DAO_Mis_Datos Modelo = new DAO_Mis_Datos();
             Frm_Password_Confirm pas = new Frm_Password_Confirm();
-            Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, IMG_panel, Internal, Modelo,pas);
+            Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, IMG_panel, Internal, Modelo, pas);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
             MI_Data.setSize(x, y);

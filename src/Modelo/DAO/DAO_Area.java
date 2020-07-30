@@ -18,7 +18,7 @@ import java.sql.Statement;
  */
 public class DAO_Area {
 
-   private Connection cnn = Cls_Conexion.conexion();
+   private Connection cnn = Singleton_Cls_Conexion.conexion();
 
     public ResultSet Consulta_Area() {
        

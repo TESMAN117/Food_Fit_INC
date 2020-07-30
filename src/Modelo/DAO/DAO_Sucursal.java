@@ -27,7 +27,7 @@ import org.json.simple.parser.ParseException;
  */
 public class DAO_Sucursal {
 
-  private Connection cnn = Cls_Conexion.conexion();
+  private Connection cnn = Singleton_Cls_Conexion.conexion();
 
     public ResultSet Consulta_Sucursal() {
        

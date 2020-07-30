@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.DAO.Cls_Conexion;
+import Modelo.DAO.Singleton_Cls_Conexion;
 import Modelo.DAO.DAO_Login;
 import Modelo.VO.VO_Login;
 import Vista.Frm_Datos_del_Servidor;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class Controlador {
 
     //MODELOS
-    Cls_Conexion Modelo_conexion;
+    Singleton_Cls_Conexion Modelo_conexion;
     DAO_Login Modelo_Login;
 
     //FORMULARIOS
@@ -31,7 +31,7 @@ public class Controlador {
     Frm_Datos_del_Servidor Datos_server;
 
     // Constructor del CONTROLADOR -- 
-    public Controlador(Cls_Conexion Modelo_conexion, frm_Login Login, Frm_Datos_del_Servidor Datos_server) {
+    public Controlador(Singleton_Cls_Conexion Modelo_conexion, frm_Login Login, Frm_Datos_del_Servidor Datos_server) {
         this.Modelo_conexion = Modelo_conexion;
         this.Login = Login;
         this.Datos_server = Datos_server;
@@ -40,7 +40,7 @@ public class Controlador {
 
     public static void main(String args[]) throws IOException {
         //ConfiguracionMdi();
-        Cls_Conexion Modelo_I = new Cls_Conexion();
+        Singleton_Cls_Conexion Modelo_I = new Singleton_Cls_Conexion();
         frm_Login Login_I = new frm_Login();
         Frm_Datos_del_Servidor Datos_server_I = new Frm_Datos_del_Servidor();
         Controlador Ctrl = new Controlador(Modelo_I, Login_I, Datos_server_I);
@@ -57,6 +57,7 @@ public class Controlador {
         Modelo_conexion.conexion(); // Invoca el medoto conexion del MODELO -- Recibe el formulario de datos servidor.
 
         if (Modelo_conexion.getState() == true) {
+            
             Modelo_Login = new DAO_Login();
             VO_Login vo_login = new VO_Login();
             Frm_Tablas tabla = new Frm_Tablas();

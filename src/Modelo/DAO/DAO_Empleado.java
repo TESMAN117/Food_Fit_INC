@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class DAO_Empleado {
 
-    private Connection cnn = Cls_Conexion.conexion();
+    private Connection cnn = Singleton_Cls_Conexion.conexion();
 
     public ResultSet Consulta_Empleado(String opcion) {
 

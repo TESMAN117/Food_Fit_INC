@@ -77,9 +77,9 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
         this.pinta_categorias();
         this.Ventas.lbl_Total.setText("0.0");
         this.Saca_Serie();
+        this.Oculta();
 
         this.Diseña_Tabla(this.Ventas.tbl_Compra);
-        
 
         this.Ventas.setIMG("src\\Multimedia\\fondo.jpg");
 
@@ -92,8 +92,7 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
         this.Ventas.btn_Quitar.addActionListener(this);
 
         this.Ventas.btn_Cliente.addActionListener(this);
-        this.Ventas.btn_Empleado.addActionListener(this);
-        this.Ventas.btn_Sucursal.addActionListener(this);
+
         this.Ventas.btn_Tipo_Pago.addActionListener(this);
 
     }
@@ -122,14 +121,6 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
 
         if (e.getSource() == Ventas.btn_Cliente) {
             this.Abreformulario_Tabla("Cliente");
-        }
-
-        if (e.getSource() == Ventas.btn_Empleado) {
-            this.Abreformulario_Tabla("Empleado");
-        }
-
-        if (e.getSource() == Ventas.btn_Sucursal) {
-            this.Abreformulario_Tabla("Sucursal");
         }
 
         if (e.getSource() == Ventas.btn_Tipo_Pago) {
@@ -291,14 +282,12 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
                 String Nombre = rs.getString("vch_Nombre_Categoria_Platillo");
                 String Imagen = rs.getString("Img_categoria_platillo");
 
-                System.out.print(Nombre);
                 ImageIcon icon = new ImageIcon("src\\Multimedia\\IMG_CAT_PLATILLOS\\" + Imagen);
 
                 JButton label = new JButton();
                 label.setBounds(20, 20, 100, 100);
                 label.setToolTipText(ID_Categoria + "-" + Nombre);
 
-                System.out.println(label.getToolTipText());
                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));
                 label.setIcon(icono);
 
@@ -343,14 +332,12 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
                 String Nombre = rs.getString("vch_Nombre_Platillo") + "  " + rs.getString("vch_Presentacion_Platillo");
                 String Imagen = rs.getString("vch_IMG_Platillo");
 
-                System.out.print(Nombre);
                 ImageIcon icon = new ImageIcon("src\\Multimedia\\IMG_PLATILLOS\\" + Imagen);
 
                 JButton label = new JButton();
                 label.setBounds(20, 20, 100, 100);
                 label.setToolTipText(ID_Categoria + "-" + Nombre);
 
-                System.out.println(label.getToolTipText());
                 Icon icono = new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));
                 label.setIcon(icono);
 
@@ -392,27 +379,40 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
             DefaultTableModel modelo = (DefaultTableModel) this.Ventas.tbl_Compra.getModel();
 
             ResultSet rs = Modelo.Consulta_platillo(ID_PLATILLO);
-            ImageIcon icono = new ImageIcon("src/cantidad.png");
+            ImageIcon icono = new ImageIcon("src/Multimedia/Numero.png");
 
             String Cantidad = (String) JOptionPane.showInputDialog(null, "Intriduce la cantidad", "Cantidad", 0, icono, null, null);
 
-            if (Cantidad == null) {
+            boolean esnumero;
+            
+            try {
+                Integer.parseInt(Cantidad);
+                esnumero = true;
+
+            } catch (NumberFormatException nfe) {
+                
+                esnumero = false;
+
+            }
+
+            if (Cantidad == null ||  esnumero == false) {
                 Cantidad = "0";
+            } else {
+                String ID_platillo = "";
+                String Nombre = "";
+                String Presentacion = "";
+                String Precio = "";
+                while (rs.next()) {
+
+                    ID_platillo = rs.getString("int_ID_Platillo");
+                    Nombre = rs.getString("vch_Nombre_Platillo");
+                    Presentacion = rs.getString("vch_Presentacion_Platillo");
+                    Precio = rs.getString("flt_Precio");
+
+                }
+                modelo.addRow(new Object[]{ID_platillo, Nombre + " " + Presentacion, Cantidad, Precio});
             }
 
-            String ID_platillo = "";
-            String Nombre = "";
-            String Presentacion = "";
-            String Precio = "";
-            while (rs.next()) {
-
-                ID_platillo = rs.getString("int_ID_Platillo");
-                Nombre = rs.getString("vch_Nombre_Platillo");
-                Presentacion = rs.getString("vch_Presentacion_Platillo");
-                Precio = rs.getString("flt_Precio");
-
-            }
-            modelo.addRow(new Object[]{ID_platillo, Nombre + " " + Presentacion, Cantidad, Precio});
             this.totalizar();
 
         } catch (Exception ex) {
@@ -441,12 +441,15 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
 
             }
             this.Ventas.lbl_Total.setText(String.valueOf(t));
+        } else {
+
+            this.Ventas.lbl_Total.setText("0.0");
         }
 
     }
 
     public void imagen() {
-        ImageIcon icon = new ImageIcon("src\\Multimedia\\1063064.png");
+        ImageIcon icon = new ImageIcon("src\\Multimedia\\Botones\\comprar tota.png");
         this.Ventas.lbl_Imagen.setText(null);
         this.Ventas.lbl_Imagen.setSize(129, 107);
         Icon icono = new ImageIcon(icon.getImage().getScaledInstance(Ventas.lbl_Imagen.getWidth(), Ventas.lbl_Imagen.getHeight(),
@@ -524,8 +527,6 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
         this.Ventas.lbl_Sucursal.setVisible(false);
         this.Ventas.txt_Tipo_Pago.setEnabled(false);
         this.Ventas.lbl_Tipo_Pago.setVisible(false);
-        this.Ventas.btn_Empleado.setVisible(false);
-        this.Ventas.btn_Sucursal.setVisible(false);
 
     }
 
@@ -592,7 +593,5 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
             Tabla.getColumnModel().getColumn(i).setCellRenderer(new Celdas("texto"));
         }
     }
-
-   
 
 }

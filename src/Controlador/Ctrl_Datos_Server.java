@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.DAO.Cls_Conexion;
+import Modelo.DAO.Singleton_Cls_Conexion;
 import Vista.Frm_Datos_del_Servidor;
 import Vista.frm_Login;
 import java.awt.event.ActionEvent;
@@ -21,10 +21,10 @@ import javax.swing.JOptionPane;
  */
 public class Ctrl_Datos_Server implements ActionListener {
 
-    Cls_Conexion Modelo_Conectar; // MODELO conexion
+    Singleton_Cls_Conexion Modelo_Conectar; // MODELO conexion
     Frm_Datos_del_Servidor frm_datos; // VISTA de formularo datos servidor
 
-    public Ctrl_Datos_Server(Cls_Conexion Modelo_Conectar, Frm_Datos_del_Servidor frm_datos) {
+    public Ctrl_Datos_Server(Singleton_Cls_Conexion Modelo_Conectar, Frm_Datos_del_Servidor frm_datos) {
         this.Modelo_Conectar = Modelo_Conectar; // Instancia el MODELO.
         this.frm_datos = frm_datos; // Instancia el FORMULARIO Datos del servidor.
         this.frm_datos.txt_base.addActionListener(this);  // Agrega accion del boton
@@ -61,7 +61,7 @@ public class Ctrl_Datos_Server implements ActionListener {
             frm_datos.dispose();
             Modelo_Conectar.leerArchivo();
 
-            Cls_Conexion Modelo_I = new Cls_Conexion();
+            Singleton_Cls_Conexion Modelo_I = new Singleton_Cls_Conexion();
             frm_Login Login_I = new frm_Login();
             Frm_Datos_del_Servidor Datos_server_I = new Frm_Datos_del_Servidor();
             Controlador Ctrl = new Controlador(Modelo_I, Login_I, Datos_server_I);

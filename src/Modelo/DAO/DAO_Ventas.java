@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DAO_Ventas {
 
-  private Connection cnn = Cls_Conexion.conexion();
+  private Connection cnn = Singleton_Cls_Conexion.conexion();
     public ResultSet Consulta_Categorias() {
 
         ResultSet rs = null;

@@ -31,6 +31,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.codec.digest.DigestUtils;
+import proxy.I_Proxy;
+import proxy.proxy;
 
 /**
  *
@@ -46,8 +48,6 @@ public class Ctrl_Login implements ActionListener {
     VO_Login vo_login;
     Frm_Tablas tabla;
 
-    
-
     public static int ID_SUCURSAL = 0;
 
     public static String NOMBRE_SUCURSAL = "";
@@ -61,18 +61,37 @@ public class Ctrl_Login implements ActionListener {
     private String Tipo_user, nick, contra;
 
     String Datos[];
+    proxy proxy;
+    I_Proxy I_Proxy;
 
     public Ctrl_Login(frm_Login Vista_login, DAO_Login Modelo_login, VO_Login vo_login, Frm_Tablas tabla) {
         this.Vista_login = Vista_login;
         this.Modelo_login = Modelo_login;
         this.vo_login = vo_login;
         this.tabla = tabla;
-        
+
+        proxy = new proxy();
+        I_Proxy = new proxy();
+
         this.Vista_login.setIMG("src\\Multimedia\\67611159_152587362494082_752442445936984064_o.jpg");
         this.Vista_login.Btn_Start.addActionListener(this);
         this.Vista_login.btn_Exit.addActionListener(this);
         this.Vista_login.txt_pass.addActionListener(this);
         this.Vista_login.txt_User.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == Vista_login.Btn_Start) {
+            Logeo();
+        }
+
+        if (e.getSource() == Vista_login.btn_Exit) {
+            System.exit(0);
+
+        }
+
     }
 
     public void Logeo() {
@@ -89,48 +108,54 @@ public class Ctrl_Login implements ActionListener {
         } else {
 
             try {
-                ResultSet rs = Modelo_login.Iniciar_sesion(vo_login);
+                if (I_Proxy.I_Inicia(vo_login) != null) {
 
-                Datos = new String[1];
+                    ResultSet rs = proxy.I_Inicia(vo_login);
 
-                if (rs.next()) {
+                    Datos = new String[1];
 
-                    Tipo_user = rs.getString("CLV_Tipo_Usuario");
+                    if (rs.next()) {
 
-                    nick = rs.getString("vch_Usuario");
-                    contra = rs.getString("vch_Password");
-                    Datos[0] = rs.getString("CLV_Empleado_User");
+                        Tipo_user = rs.getString("CLV_Tipo_Usuario");
 
-                    this.ID_Usuario = rs.getInt("int_ID_Usuario");
-                    this.Primera_vez = rs.getString("Primera_vez");
-                    this.Fecha_cambio = rs.getString("Cambio_");
+                        nick = rs.getString("vch_Usuario");
+                        contra = rs.getString("vch_Password");
+                        Datos[0] = rs.getString("CLV_Empleado_User");
 
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + nick);
-                    
-                    MDI = new MDI_Food();
-                    
-                    MDI.setTitle("Foot Fit INC");
-                    
-                    MDI.setExtendedState(this.MDI.MAXIMIZED_BOTH);
-                    
+                        this.ID_Usuario = rs.getInt("int_ID_Usuario");
+                        this.Primera_vez = rs.getString("Primera_vez");
+                        this.Fecha_cambio = rs.getString("Cambio_");
 
-                    ctrl_mdi = new Ctrl_MDI(MDI, this.ID_SUCURSAL, this.NOMBRE_SUCURSAL, Datos);
-                    
-                    MDI.setVisible(true);
-                    try {
-                        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                            if ("Windows".equals(info.getName())) {
-                                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                                break;
+                        JOptionPane.showMessageDialog(null, "Bienvenido " + nick);
+
+                        MDI = new MDI_Food();
+
+                        MDI.setTitle("Foot Fit INC");
+
+                        MDI.setExtendedState(this.MDI.MAXIMIZED_BOTH);
+
+                        ctrl_mdi = new Ctrl_MDI(MDI, this.ID_SUCURSAL, this.NOMBRE_SUCURSAL, Datos);
+
+                        MDI.setVisible(true);
+                        try {
+                            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                                if ("Windows".equals(info.getName())) {
+                                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                                    break;
+                                }
                             }
+                        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+                            java.util.logging.Logger.getLogger(MDI_Food.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                         }
-                    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-                        java.util.logging.Logger.getLogger(MDI_Food.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        Vista_login.dispose();
+
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(null, "No Existe nungun usuaer");
                     }
-                    Vista_login.dispose();
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "No Existe nungun usuaer");
+                    JOptionPane.showMessageDialog(null, "Error");
                 }
 
             } catch (Exception e) {
@@ -141,27 +166,13 @@ public class Ctrl_Login implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == Vista_login.Btn_Start) {
-            Logeo();
-        }
-
-        if (e.getSource() == Vista_login.btn_Exit) {
-            System.exit(0);
-            JOptionPane.showMessageDialog(null, "Datos: ");
-        }
-
-    }
-
     public boolean Verifica() {
 
         boolean state = false;
         if ("".equals(this.Vista_login.lbl_Sucursal.getText())) {
             JOptionPane.showMessageDialog(null, "No se especifica una sucursal,Por favor Expecificar");
 
-            // this.Abreformulario_Tabla("Sucursal");
+            //this.Abreformulario_Tabla("Sucursal");
             // this.leerArchivo();
         } else {
             state = true;
@@ -209,21 +220,21 @@ public class Ctrl_Login implements ActionListener {
             while (modelo.getRowCount() > 0) {
                 modelo.removeRow(0);
             }
+            if (I_Proxy.I_Sucursal() != null) {
+                ResultSet rs = this.Modelo_login.Sucursal();
 
-            ResultSet rs = this.Modelo_login.Sucursal();
+                if (valor.equals("Sucursal")) {
 
-            if (valor.equals("Sucursal")) {
+                    while (rs.next()) {
 
-                while (rs.next()) {
+                        String A1 = String.valueOf(rs.getInt("int_ID_Sucursal"));
+                        String A2 = rs.getString("vch_Nombre");
 
-                    String A1 = String.valueOf(rs.getInt("int_ID_Sucursal"));
-                    String A2 = rs.getString("vch_Nombre");
+                        modelo.addRow(new Object[]{A1, A2});
+                    }
 
-                    modelo.addRow(new Object[]{A1, A2});
                 }
-
             }
-
         } catch (Exception e) {
 
             System.out.println(e);

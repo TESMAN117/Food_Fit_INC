@@ -147,6 +147,9 @@ public class Ctrl_Platillo extends Celdas implements ActionListener {
         form.setIconImage(img);
         form.Lbl_Titulo.setText("Agregar Platillo");
         form.btn_Actualizar.setVisible(false);
+
+        this.form.lbl_suc.setVisible(false);
+        this.form.lbl_cat.setVisible(false);
         form.Lbl_ID.setVisible(false);
 
         form.btn_Insertar.setVisible(true);
@@ -395,6 +398,7 @@ public class Ctrl_Platillo extends Celdas implements ActionListener {
         Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
         tabla.setIconImage(img);
         tabla.veri.setText(tipo);
+        this.tabla.veri.setVisible(false);
         llenaTABLAS(tipo);
         this.tabla.Tbl_Tabla.addMouseListener(
                 new MouseAdapter() {
@@ -504,8 +508,11 @@ public class Ctrl_Platillo extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Platillo_Edit(f, true);
             form.setTitle("Formulario Actualizar Platillo");
+            form.Lbl_Titulo.setText("Actualizar Platillo");
             Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
             form.setIconImage(img);
+            this.form.lbl_suc.setVisible(false);
+            this.form.lbl_cat.setVisible(false);
 
             Datos_actualizar(Integer.valueOf(Platillo.Tbl_Platillo.getValueAt(Platillo.Tbl_Platillo.getSelectedRow(), 0).toString()));
 

@@ -87,12 +87,16 @@ public class Frm_Platillo_Edit extends javax.swing.JDialog {
 
         btn_Sucursal.setText("...");
 
+        btn_Examinar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/fragmento-de-una-pelicula.png"))); // NOI18N
         btn_Examinar.setText("Examinar");
 
+        btn_Insertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/insertar.png"))); // NOI18N
         btn_Insertar.setText("Insertar");
 
+        btn_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/cerrar.png"))); // NOI18N
         btn_Cancelar.setText("Cancelar");
 
+        btn_Actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/actualizar_form.png"))); // NOI18N
         btn_Actualizar.setText("Actualizar");
 
         lbl_cat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -142,21 +146,21 @@ public class Frm_Platillo_Edit extends javax.swing.JDialog {
                                         .addComponent(lbl_cat)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lbl_suc))
-                                    .addComponent(txt_nombre)))
+                                    .addComponent(txt_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)))
                             .addComponent(Lbl_Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(btn_Insertar)
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_Insertar)
+                            .addComponent(btn_Examinar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(btn_Cancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_Actualizar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(btn_Examinar)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_IMG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_Cancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_Actualizar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lbl_IMG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -231,6 +235,7 @@ public class Frm_Platillo_Edit extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

@@ -50,6 +50,9 @@ public class Frm_Catalogo_Area extends Frame_Interno {
 
         btn_Insertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/guardar-el-archivo.png"))); // NOI18N
         btn_Insertar.setText("Insertar");
+        btn_Insertar.setBorder(null);
+        btn_Insertar.setBorderPainted(false);
+        btn_Insertar.setOpaque(false);
         btn_Insertar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/btn_Guardar_32px_3.png"))); // NOI18N
         btn_Insertar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/btn_Guardar_32px_2.png"))); // NOI18N
 

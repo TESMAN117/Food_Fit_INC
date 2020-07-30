@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
  *
  * @author jesus
  */
-public class Cls_Conexion {
+public class Singleton_Cls_Conexion {
 
     private static Connection conect = null;
 

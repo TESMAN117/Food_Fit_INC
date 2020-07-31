@@ -67,7 +67,7 @@ public class frm_Login extends Frame_Fondo {
         Btn_Start.setText("Conectar");
         Btn_Start.setOpaque(false);
 
-        txt_pass.setText("Mcel2#$dja");
+        txt_pass.setText("mcEL#$DJD1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

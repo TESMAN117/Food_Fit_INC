@@ -499,7 +499,7 @@ public class Ctrl_MDI implements ActionListener {
 
     }
 
-    private void AbreCatalago_Corte() {
+    public void AbreCatalago_Corte() {
         if (Corte == null || Corte.isClosed()) {
             Corte = new Frm_Corte_Caja();
             DAO_Corte Mo = new DAO_Corte();
@@ -517,16 +517,39 @@ public class Ctrl_MDI implements ActionListener {
         Corte.setVisible(true);
     }
 
-    private void AbreCatalago_Mis_datos() {
+   
+    
+    public void AbreCatalago_Mis_datos() {
         if (MI_Data == null || MI_Data.isClosed()) {
             MI_Data = new Frm_Mis_Datos();
-            Panel_Image IMG_panel = new Panel_Image();
-            Frame_Interno Internal = new Frame_Interno();
+            // Panel_Image IMG_panel = new Panel_Image();
+            // Frame_Interno Internal = new Frame_Interno();
+            //IMG_panel, Internal,
             DAO_Mis_Datos_Facade Modelo = new DAO_Mis_Datos_Facade();
             Frm_Password_Confirm pas = new Frm_Password_Confirm();
-            Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, IMG_panel, Internal, Modelo, pas);
+            Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, Modelo, pas);
             int x = MDI.jDesktopPane1.getWidth();
             int y = MDI.jDesktopPane1.getHeight();
+            MI_Data.setSize(x, y);
+
+            MDI.jDesktopPane1.add(MI_Data);
+        } else {
+            JOptionPane.showMessageDialog(null, "Formulario Abierto!!!");
+        }
+        MI_Data.setVisible(true);
+    }
+
+    public void AbreCatalago_Mis_datos(int xx, int yy) {
+        if (MI_Data == null || MI_Data.isClosed()) {
+            MI_Data = new Frm_Mis_Datos();
+            // Panel_Image IMG_panel = new Panel_Image();
+            // Frame_Interno Internal = new Frame_Interno();
+            //IMG_panel, Internal,
+            DAO_Mis_Datos_Facade Modelo = new DAO_Mis_Datos_Facade();
+            Frm_Password_Confirm pas = new Frm_Password_Confirm();
+            Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, Modelo, pas);
+            int x = xx;
+            int y = yy;
             MI_Data.setSize(x, y);
 
             MDI.jDesktopPane1.add(MI_Data);

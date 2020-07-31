@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public class Ctrl_Ventas extends Celdas implements ActionListener {
     private int ID_SUCURSAL;
     private String SUCURSAL;
     private int ID_EMPLEADO;
+    
+    File fichero = null;
 
     public Ctrl_Ventas(DAO_Ventas Modelo, VO_Venta vo_ventas, VO_Venta_Detalle vo_ventas_D, Frm_Ventas Ventas, Frm_Tablas tabla, int id, String name, int empleado) {
         this.Modelo = Modelo;

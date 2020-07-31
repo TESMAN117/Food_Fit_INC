@@ -43,31 +43,47 @@ public class Frm_Corte_Form extends Frame_Dialog {
         lbl_IMG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         pnl_Fondo.setBackground(new java.awt.Color(204, 255, 255));
+        pnl_Fondo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Corte de Caja", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
+        pnl_Fondo.setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setText("Corte de caja");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setText("Fecha");
 
-        lbl_Fecha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_Fecha.setText("12sdsaddsadasdasdasdasd");
+        lbl_Fecha.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lbl_Fecha.setText("Fecha");
 
-        lbl_Sucursal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_Sucursal.setText("12sdsaddsadasdasdasdasd");
+        lbl_Sucursal.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lbl_Sucursal.setText("Sucursal");
 
-        Sucursal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        Sucursal.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         Sucursal.setText("Sucursal");
 
+        lbl_IMG.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         lbl_IMG.setText("jLabel3");
 
+        btn_Salir.setBackground(new java.awt.Color(204, 204, 255));
+        btn_Salir.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btn_Salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/cerrar-sesion.png"))); // NOI18N
         btn_Salir.setText("Salir");
+        btn_Salir.setOpaque(false);
 
+        btn_Corte.setBackground(new java.awt.Color(204, 204, 255));
+        btn_Corte.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btn_Corte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/Ver_corte.png"))); // NOI18N
         btn_Corte.setText("Mostrar Corte");
+        btn_Corte.setOpaque(false);
 
+        btn_Realizar.setBackground(new java.awt.Color(204, 204, 255));
+        btn_Realizar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btn_Realizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Botones/mazo_32px.png"))); // NOI18N
         btn_Realizar.setText("Realizar Corte");
+        btn_Realizar.setOpaque(false);
 
         javax.swing.GroupLayout pnl_FondoLayout = new javax.swing.GroupLayout(pnl_Fondo);
         pnl_Fondo.setLayout(pnl_FondoLayout);
@@ -75,53 +91,59 @@ public class Frm_Corte_Form extends Frame_Dialog {
             pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_FondoLayout.createSequentialGroup()
                 .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnl_FondoLayout.createSequentialGroup()
+                    .addGroup(pnl_FondoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_Corte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Realizar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnl_FondoLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(Sucursal))
                         .addGap(32, 32, 32)
-                        .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_Sucursal)
-                            .addComponent(lbl_Fecha))
-                        .addGap(38, 38, 38)
-                        .addComponent(lbl_IMG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnl_FondoLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btn_Corte, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
-                        .addComponent(btn_Realizar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_Fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_Sucursal, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)))
+                .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_IMG, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_FondoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnl_FondoLayout.createSequentialGroup()
+                .addGap(226, 226, 226)
                 .addComponent(jLabel1)
-                .addGap(172, 172, 172))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnl_FondoLayout.setVerticalGroup(
             pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnl_FondoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_IMG, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnl_FondoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(lbl_Fecha))
                         .addGap(64, 64, 64)
                         .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_Sucursal)
-                            .addComponent(Sucursal))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                            .addComponent(Sucursal)))
+                    .addGroup(pnl_FondoLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lbl_IMG, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45)
                 .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_Salir, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_Corte, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_Realizar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(pnl_FondoLayout.createSequentialGroup()
+                        .addComponent(btn_Corte, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))
+                    .addGroup(pnl_FondoLayout.createSequentialGroup()
+                        .addGroup(pnl_FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_Realizar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,8 +152,8 @@ public class Frm_Corte_Form extends Frame_Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnl_Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnl_Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,6 +164,7 @@ public class Frm_Corte_Form extends Frame_Dialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

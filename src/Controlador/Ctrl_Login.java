@@ -111,7 +111,6 @@ public class Ctrl_Login implements ActionListener {
         Vista_login.setIconImage(img);
         this.Vista_login.setTitle("Inisiar Sesion");
 
-      
         this.Vista_login.txt_User.setBorder(BorderFactory.createLineBorder(Color.white));
         this.Vista_login.txt_User.setBackground(Color.WHITE);
 
@@ -139,7 +138,7 @@ public class Ctrl_Login implements ActionListener {
         String Pass = Vista_login.txt_pass.getText();
         String User = Vista_login.txt_User.getText();
 
-        String Password_MD5 = DigestUtils.md5Hex(Pass);
+       String Password_MD5 = DigestUtils.md5Hex(Pass);
 
         vo_login.setPass(Password_MD5);
         vo_login.setUser(User);
@@ -177,6 +176,7 @@ public class Ctrl_Login implements ActionListener {
                         ctrl_mdi = new Ctrl_MDI(MDI, this.ID_SUCURSAL, this.NOMBRE_SUCURSAL, Datos);
 
                         MDI.setVisible(true);
+
                         try {
                             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                                 if ("Windows".equals(info.getName())) {
@@ -188,7 +188,8 @@ public class Ctrl_Login implements ActionListener {
                             java.util.logging.Logger.getLogger(MDI_Food.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                         }
                         Vista_login.dispose();
-
+                        
+                        ctrl_mdi.AbreCatalago_Mis_datos(1440,815);
                     } else {
                         JOptionPane.showMessageDialog(null, "No Existe nungun usuaer");
                     }
@@ -198,7 +199,7 @@ public class Ctrl_Login implements ActionListener {
                 }
 
             } catch (Exception e) {
-                System.out.println("errorLOG:/ " + e);
+                System.out.println("error LOG:/ " + e);
             }
 
         }

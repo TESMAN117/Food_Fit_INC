@@ -115,6 +115,10 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
         if (e.getSource() == Empleado.Btn_Mostrar) {
             Mostrar();
         }
+        
+        if (e.getSource() == Empleado.Btn_Salir) {
+            this.Empleado.dispose();
+        }
 
         if (e.getSource() == form.btn_Examinar) {
             examina_img();

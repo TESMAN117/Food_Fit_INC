@@ -51,7 +51,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
+ *sd
  * @author jesus
  */
 public class Ctrl_Categoria_Platillo extends Celdas implements ActionListener {

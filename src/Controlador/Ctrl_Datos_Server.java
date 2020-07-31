@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.DAO.Singleton_Cls_Conexion;
+import Sinlgeton.Singleton_Cls_Conexion;
 import Vista.Frm_Datos_del_Servidor;
 import Vista.frm_Login;
 import java.awt.event.ActionEvent;

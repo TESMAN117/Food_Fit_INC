@@ -23,11 +23,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -84,6 +87,11 @@ public class Ctrl_Marca extends Celdas implements ActionListener {
             Marca_.dispose();
         }
 
+        if (e.getSource() == Marca_.Btn_Mostrar) {
+
+            this.Mostrar();
+        }
+
         if (e.getSource() == form.btn_Insertar) {
             Insertar_Marca();
         }
@@ -103,7 +111,9 @@ public class Ctrl_Marca extends Celdas implements ActionListener {
         form = new Frm_Marca_Edit(f, true);
         LimpiarCajas();
         form.setTitle("Formulario Agregar Marca");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Marca.png");
+        form.setIMG("src\\Multimedia\\Botones\\Fondo_Form.png");
+        Dideña_txt();
         form.setIconImage(img);
         form.lbl_Titulo.setText("Agregar Marca");
         form.btn_Actualizar.setVisible(false);
@@ -123,7 +133,9 @@ public class Ctrl_Marca extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Marca_Edit(f, true);
             form.setTitle("Formulario Actualizar Marca");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Marca.png");
+            form.setIMG("src\\Multimedia\\Botones\\Fondo_Form.png");
+            Dideña_txt();
             form.setIconImage(img);
             form.lbl_Titulo.setText("Actualizando datos de la Marca");
             String ID = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 0).toString();
@@ -131,6 +143,34 @@ public class Ctrl_Marca extends Celdas implements ActionListener {
             form.txt_Marca_nombre.setText(Nomb);
             form.lbl_ID.setText(ID);
             form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
+
+    public void Mostrar() {
+
+        int row = Marca_.Tbl_Marca.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Marca_Edit(f, true);
+            form.setTitle("Formulario Actualizar Marca");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Marca.png");
+            form.setIMG("src\\Multimedia\\Botones\\Fondo_Form.png");
+            Dideña_txt();
+            this.Desactiva_txt();
+            form.setIconImage(img);
+            form.lbl_Titulo.setText("Actualizando datos de la Marca");
+            String ID = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 0).toString();
+            String Nomb = Marca_.Tbl_Marca.getValueAt(Marca_.Tbl_Marca.getSelectedRow(), 1).toString();
+            form.txt_Marca_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.btn_Actualizar.setVisible(false);
             form.btn_Insertar.setVisible(false);
 
             form.setVisible(true);
@@ -357,6 +397,64 @@ public class Ctrl_Marca extends Celdas implements ActionListener {
         this.Marca_.Btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Marca_.Btn_Salir.setIcon(Salir_Btn1);
+
+    }
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
+    public void Desactiva_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setEnabled(false);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setEnabled(false);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
 
     }
 

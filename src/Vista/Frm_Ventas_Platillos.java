@@ -45,6 +45,7 @@ public class Frm_Ventas_Platillos extends javax.swing.JInternalFrame {
         lbl_total = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         pnl_Categoria.setLayout(new java.awt.GridLayout(0, 5));
@@ -188,9 +189,9 @@ public class Frm_Ventas_Platillos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Cancelar;
-    private javax.swing.JButton btn_Cobrar;
-    private javax.swing.JButton btn_Salir;
+    public javax.swing.JButton btn_Cancelar;
+    public javax.swing.JButton btn_Cobrar;
+    public javax.swing.JButton btn_Salir;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -198,10 +199,10 @@ public class Frm_Ventas_Platillos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lbl_img;
-    private javax.swing.JLabel lbl_total;
+    public javax.swing.JLabel lbl_img;
+    public javax.swing.JLabel lbl_total;
     private javax.swing.JPanel pnl_Categoria;
     private javax.swing.JPanel pnl_Platillo;
-    private javax.swing.JTable tbl_venta;
+    public javax.swing.JTable tbl_venta;
     // End of variables declaration//GEN-END:variables
 }

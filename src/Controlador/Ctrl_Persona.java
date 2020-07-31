@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import javax.swing.JComboBox;
@@ -28,6 +29,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -112,7 +115,9 @@ public class Ctrl_Persona extends Celdas implements ActionListener {
         Formulario_edit = new Frm_Persona_Edit(f, true);
         LimpiarCajas();
         Formulario_edit.setTitle("Formulario Agregar Persona");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Personal.png");
+        Dideña_txt();
+        Formulario_edit.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         Formulario_edit.setIconImage(img);
         Formulario_edit.lbl_Titulo.setText("Agregar Persona");
         Formulario_edit.btn_Actualizar.setVisible(false);
@@ -245,7 +250,10 @@ public class Ctrl_Persona extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(Formulario_edit);
             Formulario_edit = new Frm_Persona_Edit(f, true);
             Formulario_edit.setTitle("Formulario Actualizar Persona");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Personal.png");
+            Dideña_txt();
+
             Formulario_edit.setIconImage(img);
             Formulario_edit.lbl_Titulo.setText("ACTUALIZAR Persona");
             Formulario_edit.btn_Insertar.setVisible(false);
@@ -279,7 +287,9 @@ public class Ctrl_Persona extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(Formulario_edit);
             Formulario_edit = new Frm_Persona_Edit(f, true);
             Formulario_edit.setTitle("Formulario Actualizar Sucursal");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Personal.png");
+            Dideña_txt();
+            this.Desactiva_txt();
             Formulario_edit.setIconImage(img);
             Formulario_edit.lbl_Titulo.setText("ACTUALIZAR Persona");
             Formulario_edit.btn_Insertar.setVisible(false);
@@ -508,6 +518,64 @@ public class Ctrl_Persona extends Celdas implements ActionListener {
         this.Persona.Btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Persona.Btn_Salir.setIcon(Salir_Btn1);
+    }
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.Formulario_edit.pnl_Container.getComponentCount(); i++) {
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
 
     }
+
+    public void Desactiva_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.Formulario_edit.pnl_Container.getComponentCount(); i++) {
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    caja.setEnabled(false);
+                }
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    Area.setEnabled(false);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
 }

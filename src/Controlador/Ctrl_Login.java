@@ -12,8 +12,12 @@ import Vista.Frm_Password_Confirm;
 import Vista.Frm_Tablas;
 import Vista.MDI_Food;
 import Vista.frm_Login;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,11 +28,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.System.in;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.Scanner;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import proxy.I_Proxy;
@@ -73,11 +81,43 @@ public class Ctrl_Login implements ActionListener {
         proxy = new proxy();
         I_Proxy = new proxy();
 
-        this.Vista_login.setIMG("src\\Multimedia\\67611159_152587362494082_752442445936984064_o.jpg");
+        this.Vista_login.setIMG("src\\Multimedia\\fondo_Login.jpg");
         this.Vista_login.Btn_Start.addActionListener(this);
         this.Vista_login.btn_Exit.addActionListener(this);
         this.Vista_login.txt_pass.addActionListener(this);
         this.Vista_login.txt_User.addActionListener(this);
+
+        Border borde = new Border() {
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                g.drawRoundRect(x, y, width - 1, height - 1, 10, 10);
+            }
+
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(10 + 1, 10 + 1, 10 + 2, 10);
+            }
+
+            @Override
+            public boolean isBorderOpaque() {
+                return false;
+            }
+        };
+
+        this.Vista_login.Btn_Start.setBorder(borde);
+        this.Vista_login.btn_Exit.setBorder(borde);
+
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Frm_login acceder.png");
+        Vista_login.setIconImage(img);
+        this.Vista_login.setTitle("Inisiar Sesion");
+
+      
+        this.Vista_login.txt_User.setBorder(BorderFactory.createLineBorder(Color.white));
+        this.Vista_login.txt_User.setBackground(Color.WHITE);
+
+        this.Vista_login.txt_pass.setBorder(BorderFactory.createLineBorder(Color.white));
+        this.Vista_login.txt_pass.setBackground(Color.WHITE);
+
     }
 
     @Override
@@ -149,8 +189,7 @@ public class Ctrl_Login implements ActionListener {
                         }
                         Vista_login.dispose();
 
-                    }else
-                    {
+                    } else {
                         JOptionPane.showMessageDialog(null, "No Existe nungun usuaer");
                     }
 

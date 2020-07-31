@@ -48,7 +48,7 @@ public class Ctrl_Area extends Celdas implements ActionListener {
         this.Area_ = Area;
         this.vo_Area = vo_Area;
         this.form = form;
-        
+
         this.Diseña_Tabla();
         llenaGrid();
         this.Area_.setIMG("src\\Multimedia\\fondo.jpg");
@@ -78,6 +78,10 @@ public class Ctrl_Area extends Celdas implements ActionListener {
             Eliminar_Area();
         }
 
+        if (e.getSource() == Area_.Btn_Mostrar) {
+            this.Mostrar();
+        }
+
         if (e.getSource() == Area_.Btn_Salir) {
             Area_.dispose();
         }
@@ -100,14 +104,15 @@ public class Ctrl_Area extends Celdas implements ActionListener {
         Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
         form = new Frm_Area_Edit(f, true);
         LimpiarCajas();
-        form.setTitle("Formulario Agregar Marco");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setTitle("Formulario Agregar Area");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Area.png");
         form.setIconImage(img);
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         form.lbl_Titulo.setText("Agregar Area");
         form.btn_Actualizar.setVisible(false);
         form.lbl_ID.setVisible(false);
         form.btn_Insertar.setVisible(true);
-        form.setLocation(225,175);
+        form.setLocation(225, 175);
         llenaGrid();
 
         form.setVisible(true);
@@ -121,10 +126,11 @@ public class Ctrl_Area extends Celdas implements ActionListener {
         } else {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Area_Edit(f, true);
-            form.setTitle("Formulario Actualizar Marca");
+            form.setTitle("Formulario Actualizar Area");
             Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
             form.setIconImage(img);
-            form.lbl_Titulo.setText("Actualizando datos de la Marca");
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.lbl_Titulo.setText("Actualizando datos del Area");
             String ID = Area_.Tbl_Area.getValueAt(Area_.Tbl_Area.getSelectedRow(), 0).toString();
             String Nomb = Area_.Tbl_Area.getValueAt(Area_.Tbl_Area.getSelectedRow(), 1).toString();
             form.txt_Area_nombre.setText(Nomb);
@@ -315,6 +321,31 @@ public class Ctrl_Area extends Celdas implements ActionListener {
         }
     }
 
-   
+    public void Mostrar() {
+
+        int row = Area_.Tbl_Area.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Area_Edit(f, true);
+            form.setTitle("Formulario Mostrar Area");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setIconImage(img);
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.lbl_Titulo.setText("Mostrando datos del Area");
+            String ID = Area_.Tbl_Area.getValueAt(Area_.Tbl_Area.getSelectedRow(), 0).toString();
+            String Nomb = Area_.Tbl_Area.getValueAt(Area_.Tbl_Area.getSelectedRow(), 1).toString();
+            form.txt_Area_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.txt_Area_nombre.setEnabled(false);
+            form.btn_Actualizar.setVisible(false);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
 
 }

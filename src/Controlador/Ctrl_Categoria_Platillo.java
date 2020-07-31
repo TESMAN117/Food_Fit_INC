@@ -34,6 +34,7 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -41,6 +42,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -134,16 +137,22 @@ public class Ctrl_Categoria_Platillo extends Celdas implements ActionListener {
             Actualizar_Categoria();
         }
 
+        if (e.getSource() == Categoria.Btn_Mostrar) {
+            Mostrar();
+        }
+
     }
 
     public void Abreformulario_Edit() {
         Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
         form = new Frm_Categoria_Platillo_Edit(f, true);
         LimpiarCajas();
-        form.setTitle("Formulario Agregar Marca");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        form.setTitle("Formulario Agregar Categoria");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\categoria.png");
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+        Dideña_txt();
         form.setIconImage(img);
-        form.lbl_Titulo.setText("Agregar Marca");
+        form.lbl_Titulo.setText("Agregar Categoria");
         form.btn_Actualizar.setVisible(false);
         form.lbl_ID.setVisible(false);
         form.btn_Insertar.setVisible(true);
@@ -160,9 +169,11 @@ public class Ctrl_Categoria_Platillo extends Celdas implements ActionListener {
         } else {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Categoria_Platillo_Edit(f, true);
-            form.setTitle("Formulario Actualizar Marca");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            form.setTitle("Formulario Actualizar Categoria");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\categoria.png");
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
             form.setIconImage(img);
+            Dideña_txt();
             form.lbl_Titulo.setText("Actualizando datos de la Categoria");
             String ID = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 0).toString();
             String Nomb = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 1).toString();
@@ -445,6 +456,80 @@ public class Ctrl_Categoria_Platillo extends Celdas implements ActionListener {
         }
     }
 
-   
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
+    public void Mostrar() {
+
+        int row = Categoria.Tbl_Categoria.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Categoria_Platillo_Edit(f, true);
+            form.setTitle("Formulario Mostrar Categoria");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\categoria.png");
+            form.setIconImage(img);
+            Dideña_txt();
+            form.lbl_Titulo.setText("Mostrar datos de la Categoria");
+            String ID = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 0).toString();
+            String Nomb = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 1).toString();
+            String imagine = Categoria.Tbl_Categoria.getValueAt(Categoria.Tbl_Categoria.getSelectedRow(), 2).toString();
+            form.txt_Categoria_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.txt_Foto.setText(imagine);
+
+            form.txt_Categoria_nombre.setEnabled(false);
+
+            form.txt_Foto.setEnabled(false);;
+
+            fichero = new File("src\\Multimedia\\IMG_CAT_PLATILLOS\\" + form.txt_Foto.getText());
+            ImageIcon icon = new ImageIcon(fichero.toString());
+
+            System.out.print("Ficehero ac = " + fichero.getName());
+            IMG_BORRAR = "src\\Multimedia\\IMG_CAT_PLATILLOS\\" + fichero.getName();
+
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(form.Lbl_IMG_Cat.getWidth(), form.Lbl_IMG_Cat.getHeight(), Image.SCALE_DEFAULT));
+
+            form.Lbl_IMG_Cat.setText(null);
+
+            form.Lbl_IMG_Cat.setIcon(icono);
+            form.btn_Actualizar.setVisible(false);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
 
 }

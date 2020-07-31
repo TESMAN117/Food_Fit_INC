@@ -29,11 +29,14 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -93,6 +96,10 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
             Eliminar();
         }
 
+        if (e.getSource() == Producto.Btn_Mostrar) {
+            Mostrar();
+        }
+
         if (e.getSource() == form.btn_Proveedor) {
             Abreformulario_Tabla("Proveedor");
         }
@@ -128,7 +135,9 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
         form = new Frm_Producto_Proveedor_Edit(f, true);
         LimpiarCajas();
         form.setTitle("Formulario Agregar Producto Proveedor");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Productos.png");
+        Dideña_txt();
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         form.setIconImage(img);
         form.lbl_Titulo.setText("Agregar Producto Proveedor");
         form.btn_Actualizar.setVisible(false);
@@ -330,8 +339,47 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Producto_Proveedor_Edit(f, true);
             form.setTitle("Formulario Actualizar Producto Proveedor");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Producto.png");
             form.setIconImage(img);
+
+            Datos_actualizar(Integer.valueOf(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 0).toString()));
+
+            /*1 */ form.txt_Nombre.setText(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 1).toString());
+            /*2*/ form.txt_Presentacion.setText(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 2).toString());
+            /*3*/ form.CBM_Tipo_Existencia.setSelectedItem(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 3).toString());
+            /*4*/ form.txt_Cantidad.setText(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 4).toString());
+
+            /*6*/ form.txt_Costo_Unitario.setText(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 5).toString());
+
+            Date fecha;
+            String fechita = Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 0).toString();
+            fecha = this.StringADate(fechita);
+
+            /*10*/ this.form.date_Fecha.setDate(fecha);
+
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
+
+    public void Mostrar() {
+
+        int row = Producto.Tbl_Producto.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Producto_Proveedor_Edit(f, true);
+            form.setTitle("Formulario Actualizar Producto Proveedor");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Producto.png");
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.setIconImage(img);
+            this.Dideña_txt();
+            this.Desactiva_txt();
 
             Datos_actualizar(Integer.valueOf(Producto.Tbl_Producto.getValueAt(Producto.Tbl_Producto.getSelectedRow(), 0).toString()));
 
@@ -390,6 +438,7 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
         Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
         tabla.setIconImage(img);
         tabla.veri.setText(tipo);
+        tabla.setIMG("src\\Multimedia\\Fondo_Tablas.jpg");
         llenaTABLAS(tipo);
         this.tabla.Tbl_Tabla.addMouseListener(
                 new MouseAdapter() {
@@ -572,7 +621,7 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
             System.out.println(e);
         }
     }
-    
+
     public void Diseña_Tabla(JTable Tabla) {
 
         Tabla.getTableHeader().setReorderingAllowed(false);
@@ -654,6 +703,64 @@ public class Ctrl_Producto_Proveedor extends Celdas implements ActionListener {
         this.Producto.Btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Producto.Btn_Salir.setIcon(Salir_Btn1);
+
+    }
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
+    public void Desactiva_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setEnabled(false);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setEnabled(false);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
 
     }
 }

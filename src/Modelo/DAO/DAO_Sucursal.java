@@ -5,6 +5,7 @@
  */
 package Modelo.DAO;
 
+import Sinlgeton.Singleton_Cls_Conexion;
 import Modelo.VO.VO_Sucursal;
 import com.google.gson.Gson;
 import java.io.FileReader;

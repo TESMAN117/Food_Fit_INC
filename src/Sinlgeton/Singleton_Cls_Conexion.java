@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo.DAO;
+package Sinlgeton;
 
 import Controlador.Controlador;
 import Controlador.Ctrl_Login;

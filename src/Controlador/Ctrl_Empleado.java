@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.ResultSet;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -32,6 +33,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -109,6 +112,10 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
             Eliminar();
         }
 
+        if (e.getSource() == Empleado.Btn_Mostrar) {
+            Mostrar();
+        }
+
         if (e.getSource() == form.btn_Examinar) {
             examina_img();
         }
@@ -148,12 +155,19 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
         form = new Frm_Empleado_Edit(f, true);
         LimpiarCajas();
         form.setTitle("Formulario Agregar Empleado");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\empleado.png");
+        Dideña_txt();
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         form.setIconImage(img);
         form.Lbl_Titulo.setText("Agregar Empleado");
         form.btn_Actualizar.setVisible(false);
         form.lbl_ID.setVisible(false);
         form.ID_LABEL.setVisible(false);
+
+        form.lbl_Area.setVisible(false);
+        form.lbl_Puesto.setVisible(false);
+        form.lbl_Persona.setVisible(false);
+        form.lbl_Jefe.setVisible(false);
 
         form.btn_Insertar.setVisible(true);
         llenaGrid();
@@ -170,7 +184,9 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Empleado_Edit(f, true);
             form.setTitle("Formulario Actualizar Empleado");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\empleado.png");
+        Dideña_txt();
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
             form.setIconImage(img);
 
             Datos_actualizar(Integer.valueOf(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 0).toString()));
@@ -191,6 +207,56 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
             form.lbl_IMG.setText(null);
 
             form.lbl_IMG.setIcon(icono);
+            form.lbl_Area.setVisible(false);
+            form.lbl_Puesto.setVisible(false);
+            form.lbl_Persona.setVisible(false);
+            form.lbl_Jefe.setVisible(false);
+            form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
+
+    public void Mostrar() {
+
+        int row = Empleado.Tbl_Empleado.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Empleado_Edit(f, true);
+            form.setTitle("Formulario Actualizar Empleado");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\empleado.png");
+            Dideña_txt();
+            Desactiva_txt();
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.setIconImage(img);
+
+            Datos_actualizar(Integer.valueOf(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 0).toString()));
+
+            form.txt_Persona.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 1).toString());
+            form.Txt_Puesto.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 2).toString());
+            form.Txt_Area.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 3).toString());
+            form.Txt_Jefe.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 4).toString());
+            form.Txt_Img.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 5).toString());
+            form.lbl_ID.setText(Empleado.Tbl_Empleado.getValueAt(Empleado.Tbl_Empleado.getSelectedRow(), 0).toString());
+
+            fichero = new File("src\\Multimedia\\IMG_EMPLEADOS\\" + form.Txt_Img.getText());
+            ImageIcon icon = new ImageIcon(fichero.toString());
+            IMG_BORRAR = "src\\Multimedia\\IMG_EMPLEADOS\\" + fichero.getName();
+
+            Icon icono = new ImageIcon(icon.getImage().getScaledInstance(form.lbl_IMG.getWidth(), form.lbl_IMG.getHeight(), Image.SCALE_DEFAULT));
+
+            form.lbl_IMG.setText(null);
+
+            form.lbl_IMG.setIcon(icono);
+            form.lbl_Area.setVisible(false);
+            form.lbl_Puesto.setVisible(false);
+            form.lbl_Persona.setVisible(false);
+            form.lbl_Jefe.setVisible(false);
 
             form.btn_Actualizar.setVisible(true);
             form.btn_Insertar.setVisible(false);
@@ -600,8 +666,8 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
         }
 
     }
-    
-     public void Diseña_Tabla() {
+
+    public void Diseña_Tabla() {
 
         this.Empleado.Tbl_Empleado.getTableHeader().setReorderingAllowed(false);
         this.Empleado.Tbl_Empleado.setRowHeight(28);//tamaño de las celdas
@@ -682,7 +748,64 @@ public class Ctrl_Empleado extends Celdas implements ActionListener {
         this.Empleado.Btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Empleado.Btn_Salir.setIcon(Salir_Btn1);
-      
+
     }
-    
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
+    public void Desactiva_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setEnabled(false);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setEnabled(false);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
 }

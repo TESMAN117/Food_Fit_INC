@@ -6,7 +6,7 @@
 package Facade;
 
 import Controlador.Ctrl_Login;
-import Modelo.DAO.DAO_Mis_Datos;
+import Modelo.DAO.DAO_Mis_Datos_Facade;
 import Vista.Frm_Mis_Datos;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -20,18 +20,17 @@ public class Facade {
     private int USUARIO;
     private int SUCURSAL;
     private Frm_Mis_Datos Mi_Data;
-    DAO_Mis_Datos Modelo;
+    DAO_Mis_Datos_Facade Modelo;
 
-    public Facade(int USUARIO,int SUCURSAL, Frm_Mis_Datos Mi_Data, DAO_Mis_Datos Modelo) {
+    public Facade(int USUARIO, int SUCURSAL, Frm_Mis_Datos Mi_Data, DAO_Mis_Datos_Facade Modelo) {
         this.USUARIO = USUARIO;
-         this.SUCURSAL = SUCURSAL;
+        this.SUCURSAL = SUCURSAL;
         this.Mi_Data = Mi_Data;
         this.Modelo = Modelo;
     }
 
     public void Mis_Datos() {
         try {
-
 
             ResultSet rs = Modelo.Mi_Data(USUARIO, SUCURSAL);
 

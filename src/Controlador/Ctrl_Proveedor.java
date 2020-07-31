@@ -22,12 +22,15 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.Files;
 import java.sql.ResultSet;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -76,6 +79,10 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
         if (e.getSource() == Proveedor.Btn_Eliminar) {
             Eliminar();
         }
+        
+        if (e.getSource() == Proveedor.Btn_Mostrar) {
+            this.Mostrar();
+        }
 
         if (e.getSource() == form.btn_Cancelar) {
             form.dispose();
@@ -96,7 +103,9 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
         form = new Frm_Proveedor_Edit(f, true);
         LimpiarCajas();
         form.setTitle("Formulario Agregar Proveedor");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Proveedor.png");
+        Dideña_txt();
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         form.setIconImage(img);
         form.lbl_titulo.setText("Agregar Proveedor");
         form.btn_Actualizar.setVisible(false);
@@ -281,7 +290,9 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Proveedor_Edit(f, true);
             form.setTitle("Formulario Actualizar Proveedor");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Proveedor.png");
+            Dideña_txt();
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
             form.setIconImage(img);
 
             form.txt_Nombre.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 1).toString());
@@ -290,6 +301,35 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
 
             form.lbl_ID.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 0).toString());
             form.btn_Actualizar.setVisible(true);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
+
+    public void Mostrar() {
+
+        int row = Proveedor.Tbl_Proveedor.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Proveedor_Edit(f, true);
+            form.setTitle("Formulario Actualizar Proveedor");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Proveedor.png");
+            Dideña_txt();
+            Desactiva_txt();
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.setIconImage(img);
+
+            form.txt_Nombre.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 1).toString());
+            form.txt_Telefono.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 2).toString());
+            form.txt_Direccion.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 3).toString());
+
+            form.lbl_ID.setText(Proveedor.Tbl_Proveedor.getValueAt(Proveedor.Tbl_Proveedor.getSelectedRow(), 0).toString());
+            form.btn_Actualizar.setVisible(false);
             form.btn_Insertar.setVisible(false);
 
             form.setVisible(true);
@@ -307,7 +347,8 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
         form.lbl_titulo.setText(" ");
 
     }
- public void Diseña_Tabla(JTable Tabla) {
+
+    public void Diseña_Tabla(JTable Tabla) {
 
         Tabla.getTableHeader().setReorderingAllowed(false);
         Tabla.setRowHeight(28);//tamaño de las celdas
@@ -388,6 +429,64 @@ public class Ctrl_Proveedor extends Celdas implements ActionListener {
         this.Proveedor.Btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Proveedor.Btn_Salir.setIcon(Salir_Btn1);
+
+    }
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+
+    }
+
+    public void Desactiva_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+
+                    caja.setEnabled(false);
+                }
+
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+
+                    Area.setEnabled(false);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
 
     }
 }

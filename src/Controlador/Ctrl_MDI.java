@@ -13,7 +13,7 @@ import Modelo.DAO.DAO_Corte;
 import Modelo.DAO.DAO_Empleado;
 import Modelo.DAO.DAO_Linea;
 import Modelo.DAO.DAO_MDI;
-import Modelo.DAO.DAO_Mis_Datos;
+import Modelo.DAO.DAO_Mis_Datos_Facade;
 import Modelo.DAO.DAO_Platillo;
 import Modelo.DAO.DAO_Producto_Proveedor;
 import Modelo.DAO.DAO_Proveedor;
@@ -522,7 +522,7 @@ public class Ctrl_MDI implements ActionListener {
             MI_Data = new Frm_Mis_Datos();
             Panel_Image IMG_panel = new Panel_Image();
             Frame_Interno Internal = new Frame_Interno();
-            DAO_Mis_Datos Modelo = new DAO_Mis_Datos();
+            DAO_Mis_Datos_Facade Modelo = new DAO_Mis_Datos_Facade();
             Frm_Password_Confirm pas = new Frm_Password_Confirm();
             Ctrl_Mis_Datos ctrl = new Ctrl_Mis_Datos(MI_Data, IMG_panel, Internal, Modelo, pas);
             int x = MDI.jDesktopPane1.getWidth();

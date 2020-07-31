@@ -5,6 +5,7 @@
  */
 package Modelo.DAO;
 
+import Sinlgeton.Singleton_Cls_Conexion;
 import Modelo.VO.VO_Linea;
 import java.rmi.RemoteException;
 import java.sql.Connection;

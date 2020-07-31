@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,13 +34,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -68,6 +73,7 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
         this.Diseña_Tabla(this.Sucursal.tbl_Sucursal);
         this.Dideña_Boton();
         this.llenaGrid();
+
         this.Sucursal.setIMG("src\\Multimedia\\fondo.jpg");
         this.Sucursal.btn_Agregar.addActionListener(this);
         this.Sucursal.btn_Actualizar.addActionListener(this);
@@ -126,10 +132,11 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
         try {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(Formulario_edit);
             Formulario_edit = new Frm_Sucursal_Edit(f, true);
-
+            this.Dideña_txt();
             LimpiarCajas();
             Formulario_edit.setTitle("Formulario Agregar Sucursal");
             Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            this.Formulario_edit.setIMG("src\\Multimedia\\Fondo_Form.jpg");
             Formulario_edit.setIconImage(img);
             Formulario_edit.txt_Titulos.setText("Agregar Sucursal");
             Formulario_edit.btn_Actualizar.setVisible(false);
@@ -184,7 +191,7 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
                 Formulario_edit = new Frm_Sucursal_Edit(f, true);
 
                 Formulario_edit.setTitle("Formulario Actualizar Sucursal");
-
+                Formulario_edit.setIMG("src\\Multimedia\\Fondo_Form.jpg");
                 Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
                 Formulario_edit.setIconImage(img);
 
@@ -199,7 +206,7 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
                 Formulario_edit.txt_municipio.setText(Sucursal.tbl_Sucursal.getValueAt(fila, 3).toString());
                 // Formulario_edit.txt_Estado.setText(Sucursal.tbl_Sucursal.getValueAt(fila, 4).toString());
                 Formulario_edit.cmb_estado.setSelectedItem(Sucursal.tbl_Sucursal.getValueAt(fila, 4).toString());
-                Formulario_edit.txt_ID.setEditable(false);
+
                 Formulario_edit.setVisible(true);
                 llenaGrid();
             } catch (SQLException ex) {
@@ -269,7 +276,7 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
 
                 Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
                 Formulario_edit.setIconImage(img);
-
+                Formulario_edit.setIMG("src\\Multimedia\\Fondo_Form.jpg");
                 Formulario_edit.txt_Titulos.setText("Visualizar Sucursal");
                 Formulario_edit.btn_Insertar.setVisible(false);
                 Formulario_edit.btn_Actualizar.setVisible(false);
@@ -281,7 +288,6 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
                 Formulario_edit.txt_municipio.setText(Sucursal.tbl_Sucursal.getValueAt(fila, 3).toString());
                 Formulario_edit.cmb_estado.setSelectedItem(Sucursal.tbl_Sucursal.getValueAt(fila, 4).toString());
 
-                Formulario_edit.txt_ID.setEditable(false);
                 Formulario_edit.txt_Nombre.setEditable(false);
                 Formulario_edit.txt_Direcion.setEditable(false);
                 Formulario_edit.txt_municipio.setEditable(false);
@@ -422,7 +428,7 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
         }
 
     }
-    
+
     public void Diseña_Tabla(JTable Tabla) {
 
         Tabla.getTableHeader().setReorderingAllowed(false);
@@ -504,6 +510,59 @@ public class Ctrl_Sucursal extends Celdas implements ActionListener {
         this.Sucursal.btn_Mostrar.setPressedIcon(ver_Btn3);
 
         this.Sucursal.btn_Exit.setIcon(Salir_Btn1);
+
+        Border borde = new Border() {
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                g.drawRoundRect(x, y, width - 1, height - 1, 10, 10);
+            }
+
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(10 + 1, 10 + 1, 10 + 2, 10);
+            }
+
+            @Override
+            public boolean isBorderOpaque() {
+                return false;
+            }
+        };
+
+        this.Sucursal.btn_Exit.setBorder(borde);
+        this.Sucursal.btn_Agregar.setBorder(borde);
+        this.Sucursal.btn_Actualizar.setBorder(borde);
+        this.Sucursal.btn_Eliminar.setBorder(borde);
+        this.Sucursal.btn_Mostrar.setBorder(borde);
+
+    }
+
+    public void Dideña_txt() {
+
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.Formulario_edit.pnl_Container.getComponentCount(); i++) {
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+
+                    caja = (JTextField) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+
+                if (this.Formulario_edit.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+
+                    Area = (JTextArea) this.Formulario_edit.pnl_Container.getComponent(i);
+
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
 
     }
 }

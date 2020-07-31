@@ -5,6 +5,7 @@
  */
 package Modelo.DAO;
 
+import Sinlgeton.Singleton_Cls_Conexion;
 import Modelo.VO.VO_Login;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ import proxy.I_Proxy;
  *
  * @author jesus
  */
-public class DAO_Login implements I_Proxy {
+public class DAO_Login {
 
     private Connection cnn = Singleton_Cls_Conexion.conexion();
 
@@ -58,7 +59,7 @@ public class DAO_Login implements I_Proxy {
         return null;
     }
 
-    @Override
+   /* @Override
     public ResultSet I_Inicia(VO_Login x) {
         return this.Iniciar_sesion(x);
     }
@@ -67,5 +68,5 @@ public class DAO_Login implements I_Proxy {
     public ResultSet I_Sucursal() {
         return this.Sucursal();
     }
-
+*/
 }

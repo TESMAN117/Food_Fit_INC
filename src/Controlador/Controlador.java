@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.DAO.Singleton_Cls_Conexion;
+import Sinlgeton.Singleton_Cls_Conexion;
 import Modelo.DAO.DAO_Login;
 import Modelo.VO.VO_Login;
 import Vista.Frm_Datos_del_Servidor;

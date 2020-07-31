@@ -6,7 +6,7 @@
 package Controlador;
 
 import Facade.Facade;
-import Modelo.DAO.DAO_Mis_Datos;
+import Modelo.DAO.DAO_Mis_Datos_Facade;
 import Vista.Frm_Empleado_Edit;
 import Vista.Frm_Mis_Datos;
 import Vista.Frm_Password_Confirm;
@@ -35,9 +35,10 @@ public class Ctrl_Mis_Datos implements ActionListener {
     Panel_Image IMG_panel;
     Frame_Interno Internal;
 
-    DAO_Mis_Datos Modelo;
+    DAO_Mis_Datos_Facade Modelo;
 
     Frm_Password_Confirm form;
+    
     Facade Fachada;
 
     private String que_hace = "";
@@ -47,19 +48,23 @@ public class Ctrl_Mis_Datos implements ActionListener {
     int SUCURSAL = Ctrl_Login.ID_SUCURSAL;
     int USUARIO = Ctrl_Login.ID_Usuario;
 
-    public Ctrl_Mis_Datos(Frm_Mis_Datos Mi_Data, Panel_Image IMG_panel, Frame_Interno Internal, DAO_Mis_Datos Modelo, Frm_Password_Confirm primera) {
+    public Ctrl_Mis_Datos(Frm_Mis_Datos Mi_Data, Panel_Image IMG_panel, Frame_Interno Internal, DAO_Mis_Datos_Facade Modelo, Frm_Password_Confirm primera) {
         this.Mi_Data = Mi_Data;
         this.IMG_panel = IMG_panel;
         this.Internal = Internal;
         this.Modelo = Modelo;
         this.form = primera;
+        
         this.Fachada = new Facade(USUARIO,SUCURSAL,Mi_Data,Modelo);
 
         this.Mi_Data.setIMG("src\\Multimedia\\fondo.jpg");
         this.Mi_Data.btn_Ver_password.addActionListener(this);
         this.form.btn_Actualizar.addActionListener(this);
         this.Imagen();
+        
         this.Fachada.Mis_Datos();
+        
+        
         if (Ctrl_Login.Primera_vez.equals("true")) {
             this.que_hace = "primera";
         }
@@ -68,7 +73,7 @@ public class Ctrl_Mis_Datos implements ActionListener {
 
         }
 
-        JOptionPane.showMessageDialog(null, Ctrl_Login.Fecha_cambio + " / " + Fecha);
+       // JOptionPane.showMessageDialog(null, Ctrl_Login.Fecha_cambio + " / " + Fecha);
 
         this.Primeravez();
 
@@ -91,93 +96,7 @@ public class Ctrl_Mis_Datos implements ActionListener {
     }
     String State = "ver";
 
-    /* public void Mis_Datos() {
-        try {
-
-            int SUCURSAL = Ctrl_Login.ID_SUCURSAL;
-            int USUARIO = Ctrl_Login.ID_Usuario;
-
-            ResultSet rs = Modelo.Mi_Data(USUARIO, SUCURSAL);
-
-            //Datos Usuario
-            String Perfil = "";
-            String Usuario = "";
-            String Password = "";
-
-            //Datos Empleado
-            String Puesto = "";
-            String Area = "";
-            int Jefe = 0;
-            float Sueldo = 0;
-            String Imagen = "";
-
-            //Datos Personales
-            String Nombre = "";
-            String APaterno = "";
-            String AMaterno = "";
-            String Correo = "";
-            String Telefono = "";
-            String RFC = "";
-            String Codigo_P = "";
-            String Domicilio = "";
-            String Sucursal = "";
-
-            while (rs.next()) {
-
-                //Datos Usuario
-                Perfil = rs.getString("vch_Perfil");
-                Usuario = rs.getString("vch_Usuario");
-                Password = rs.getString("vch_Password");
-
-                //Datos Empleado
-                Puesto = rs.getString("vch_Puesto");
-                Area = rs.getString("vch_Area");
-                Jefe = rs.getInt("CLV_Jefe");
-                Sueldo = rs.getFloat("flt_Saldo");
-                Imagen = rs.getString("Img_Foto_Empleado");
-
-                //Datos Personales
-                Nombre = rs.getString("vch_Nombre_Persona");
-                APaterno = rs.getString("vch_A_Paterno");
-                AMaterno = rs.getString("vch_A_Materno");
-                Correo = rs.getString("vch_Correo");
-                Telefono = rs.getString("vch_Telefono");
-                RFC = rs.getString("vch_RFC");
-                Codigo_P = rs.getString("vch_Codigo_Postal");
-                Domicilio = rs.getString("vch_Domicilio");
-                Sucursal = Ctrl_Login.NOMBRE_SUCURSAL;
-
-            }
-            //Datos Usuario
-            this.Mi_Data.txt_Perfil.setText(Perfil);
-            this.Mi_Data.txt_Usuario.setText(Usuario);
-            this.Mi_Data.txt_Password.setText(Password);
-
-            //Datos Empleado
-            this.Mi_Data.txt_Puesto.setText(Puesto);
-            this.Mi_Data.txt_Area.setText(Area);
-            this.Mi_Data.txt_Jefe.setText(Jefe + " ");
-            this.Mi_Data.txt_Saldo.setText(Sueldo + "");
-            this.Mi_Data.txt_IMG.setText(Imagen);
-
-            //Datos Personales
-            this.Mi_Data.txt_Nombre.setText(Nombre);
-            this.Mi_Data.txt_APaterno.setText(APaterno);
-            this.Mi_Data.txt_AMaterno.setText(AMaterno);
-            this.Mi_Data.txt_Correo.setText(Correo);
-            this.Mi_Data.txt_Telefono.setText(Telefono);
-            this.Mi_Data.txt_RFC.setText(RFC);
-            this.Mi_Data.txt_CP.setText(Codigo_P);
-            this.Mi_Data.txt_Domicilio.setText(Domicilio);
-            this.Mi_Data.txt_Sucursal.setText(Sucursal);
-
-        } catch (Exception ex) {
-
-            System.out.print("Errorr : " + ex);
-
-        }
-
-    }*/
+   
     private void Imagen() {
 
         this.Mi_Data.lbl_Fit.setSize(576, 166);

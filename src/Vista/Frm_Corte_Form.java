@@ -5,11 +5,13 @@
  */
 package Vista;
 
+import food_fit_inc.Frame_Dialog;
+
 /**
  *
  * @author jesus
  */
-public class Frm_Corte_Form extends javax.swing.JDialog {
+public class Frm_Corte_Form extends Frame_Dialog {
 
     /**
      * Creates new form Frm_Corte_Form

@@ -5,6 +5,7 @@
  */
 package Modelo.DAO;
 
+import Sinlgeton.Singleton_Cls_Conexion;
 import Controlador.Ctrl_Login;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import java.sql.Statement;
  *
  * @author jesus
  */
-public class DAO_Mis_Datos {
+public class DAO_Mis_Datos_Facade {
 
      private Connection cnn = Singleton_Cls_Conexion.conexion();
     

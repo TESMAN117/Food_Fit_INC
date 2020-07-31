@@ -5,6 +5,7 @@
  */
 package Modelo.DAO;
 
+import Sinlgeton.Singleton_Cls_Conexion;
 import Controlador.Ctrl_Login;
 import Modelo.VO.VO_Usuario;
 import java.sql.Connection;

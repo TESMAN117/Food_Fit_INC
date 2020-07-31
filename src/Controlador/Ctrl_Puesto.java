@@ -23,11 +23,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -82,6 +85,10 @@ public class Ctrl_Puesto extends Celdas implements ActionListener {
         if (e.getSource() == Puesto.Btn_Salir) {
             Puesto.dispose();
         }
+        
+        if (e.getSource() == Puesto.Btn_Mostrar) {
+            this.Mostrar();
+        }
 
         if (e.getSource() == form.btn_Insertar) {
             Insertar_Puesto();
@@ -102,7 +109,9 @@ public class Ctrl_Puesto extends Celdas implements ActionListener {
         form = new Frm_Puesto_Edit(f, true);
         LimpiarCajas();
         form.setTitle("Formulario Agregar Puesto");
-        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+        Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Puesto.png");
+        Diseña_txt();
+        form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
         form.setIconImage(img);
         form.lbl_Titulo.setText("Agregar Puesto");
         form.btn_Actualizar.setVisible(false);
@@ -122,7 +131,9 @@ public class Ctrl_Puesto extends Celdas implements ActionListener {
             Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
             form = new Frm_Puesto_Edit(f, true);
             form.setTitle("Formulario Actualizar Puesto");
-            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\las-compras-en-linea.png");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Puesto.png");
+            Diseña_txt();
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
             form.setIconImage(img);
 
             String ID = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 0).toString();
@@ -141,6 +152,39 @@ public class Ctrl_Puesto extends Celdas implements ActionListener {
         }
 
     }
+    
+    public void Mostrar() {
+
+        int row = Puesto.Tbl_Puesto.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una Columna!!");
+        } else {
+            Frame f = javax.swing.JOptionPane.getFrameForComponent(form);
+            form = new Frm_Puesto_Edit(f, true);
+            form.setTitle("Formulario Actualizar Puesto");
+            Image img = Toolkit.getDefaultToolkit().getImage("src\\Multimedia\\Botones\\Puesto.png");
+            Diseña_txt();
+            Desactiva_txt();
+            form.setIMG("src\\Multimedia\\Fondo_Form.jpg");
+            form.setIconImage(img);
+
+            String ID = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 0).toString();
+            String Nomb = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 1).toString();
+            String Saldito = Puesto.Tbl_Puesto.getValueAt(Puesto.Tbl_Puesto.getSelectedRow(), 2).toString();
+            form.txt_Puesto_nombre.setText(Nomb);
+            form.lbl_ID.setText(ID);
+            form.lbl_Titulo.setText("--Actualizando Datos--");
+            form.txt_Saldo.setText(Saldito);
+
+            form.btn_Actualizar.setVisible(false);
+            form.btn_Insertar.setVisible(false);
+
+            form.setVisible(true);
+            llenaGrid();
+        }
+
+    }
+
 
     public void llenaGrid() {
         try {
@@ -369,4 +413,63 @@ public class Ctrl_Puesto extends Celdas implements ActionListener {
         this.Puesto.Btn_Salir.setIcon(Salir_Btn1);
 
     }
+    
+      public void Diseña_txt() {
+        
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+                
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+                    
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+                    
+                    caja.setBorder(BorderFactory.createLineBorder(Color.white));
+                    caja.setBackground(Color.WHITE);
+                }
+                
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+                    
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+                    
+                    Area.setBorder(BorderFactory.createLineBorder(Color.white));
+                    Area.setBackground(Color.WHITE);
+                }
+                
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+        
+    }
+    
+    public void Desactiva_txt() {
+        
+        JTextField caja;
+        JTextArea Area;
+        try {
+            for (int i = 0; i < this.form.pnl_Container.getComponentCount(); i++) {
+                
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+                    
+                    caja = (JTextField) this.form.pnl_Container.getComponent(i);
+                    
+                    caja.setEnabled(false);
+                }
+                
+                if (this.form.pnl_Container.getComponent(i).getClass().getName().equals("javax.swing.JTextArea")) {
+                    
+                    Area = (JTextArea) this.form.pnl_Container.getComponent(i);
+                    
+                    Area.setEnabled(false);
+                }
+                
+            }
+        } catch (Exception ex) {
+            System.out.print("ss " + ex);
+        }
+        
+    }
+    
 }
